@@ -110,6 +110,7 @@ def route_delete_answer(combined_id):
     data_manager.delete_element("answer", answer_id)
     return redirect('/show_question/' + question_id)
 
+#test
 
 @app.route('/list/<id>/down', methods=['GET', 'POST'])
 def vote_system_minus(id):
@@ -176,7 +177,6 @@ def upload():
             filename = photos.save(request.files['photo'])
         except:
             return redirect('/show_question/' + question_id)
-
 
         id = answer_id if answer_id else question_id
         file_type = "answer" if answer_id else "question"
