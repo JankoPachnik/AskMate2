@@ -177,6 +177,7 @@ def upload():
         except:
             return redirect('/show_question/' + question_id)
 
+
         id = answer_id if answer_id else question_id
         file_type = "answer" if answer_id else "question"
 
