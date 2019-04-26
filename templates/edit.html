@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <form action="{{ action }}" method="post">
+    <meta charset="UTF-8">
+    <title>Add question</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_v2.css') }}">
+</head>
+    <body>
+        <div class="top">
+            <div class="inside">
+                <ul>
+                    <li><a href="/">Main Menu</a></li>
+                    <li><a href="/add">Add question</a></li>
+                    <li><a href="/list">Questions</a></li>
+                    <li id="about"><a href="/about">About</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="big_center">
+            <div class="inside">
+                <form action="/show_question/{{ question['id'] }}/edit" method="POST">
+                     <fieldset>
+                            <legend>Enter Your Question:</legend>
+                         Title:<br>
+                         <input name='title' type="text" value="{{ question['title'] if edit }}"><br>
+                                Question:<br>
+                         <textarea name="message">{{ question['title'] if edit }}</textarea><br>
+                            <br>
+                            <button type="submit" formmethod="post"><span>Submit</span></button>
+                     </fieldset>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>List of questions</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_v2.css') }}">
+</head>
+    <body>
+        <div class="top">
+            <div class="inside">
+                <ul>
+                    <li><a href="/">Main Menu</a></li>
+                    <li><a href="add">Add question</a></li>
+                    <li><a href="list">Questions</a></li>
+                    <li id="about"><a href="about">About</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="big_center">
+            <div class="inside">
+                <table>
+                    <a href="/list/sorted/by_date"><button id="date"><span>Date</span></button></a>
+                    <a href="/list/sorted/by_vote"><button id="vote"><span>Vote</span></button></a>
+                    <tr>
+                        <th>Index</th>
+                        <th>Tytuł</th>
+                        <th>Pytanie</th>
+                        <th>Czas dodania</th>
+                        <th>Ilość wyświetleń</th>
+                        <th>ilość likeów</th>
+                    </tr>
+                    </br>
+                {% for question in questions  %}
+                        <tr>
+                            <td>{{ loop.index }} </td>
+                            <td id="border"><a class="list" href="show_question/{{ question['id'] }}">{{ question['title'] }} </a></td>
+                            <td>{{ question['message'] }} </td>
+                            <td>{{ question['submission_time'] }} </td>
+                            <td>{{ question['view_number'] }} </td>
+
+                            {% if question['vote_number']|int < 0 %}
+                                <td class="red" >{{ question['vote_number'] }} </td>
+                            {% elif question['vote_number']|int == 0 %}
+                                <td class="yellow" >{{ question['vote_number'] }} </td>
+                            {% else %}
+                                <td class="green" >{{ question['vote_number'] }} </td>
+                            {% endif %}
+
+                            <td>
+                                <a href="list/{{ question['id'] }}/up"><img border="0" src="static/up.png" width="50" height="50"></a>
+                            </td>
+                            <td>
+                                <a href="list/{{ question['id'] }}/down"><img border="0" src="static/down.png" width="50" height="50"></a>
+                            </td>
+                            {% if question['image'] %}
+                            <td><img src="/static/{{ question['image'] }}" alt="Example image" class="img-thumbnail" style="height:70px; width:auto;"></td>
+                        {% else %}
+                            <td><img src="http://placehold.it/80" alt="Example image" class="img-thumbnail" style="height:70px; width:auto;"></td>
+                        {% endif %}
+                            <td><a href="/question/{{ question['id'] }}/delete"><button type="submit" formmethod="post" id="delete"><span>DELETE</span></button></a>
+                        </tr>
+                {% endfor %}
+                </table>
+
+    </body>
