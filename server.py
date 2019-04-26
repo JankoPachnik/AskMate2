@@ -71,6 +71,7 @@ def add_question():
     return render_template("add.html")
 
 
+
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     data = datetime.now()
