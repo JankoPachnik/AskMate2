@@ -42,14 +42,6 @@ def checker(type):
         return True if int(questions[0][type]) < int(questions[-1][type]) else False
 
 
-def question_view_count_increase(id):
-    questions = connection.import_data('ask-mate-python/sample_data/question.csv')
-    for question in questions:
-        if question['id'] == id:
-            question['view_number'] = str(int(question['view_number']) + 1)
-    connection.write_file(questions, 'ask-mate-python/sample_data/question.csv')
-
-
 def update_image(file_type, filename, id):
     data = connection.import_data(f"ask-mate-python/sample_data/{file_type}.csv")
     for element in data:

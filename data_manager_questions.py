@@ -28,3 +28,11 @@ def newest_question():
     sorted_questions = data_manager_operations.sorting_questions("by_date", True)
     new_question.append(sorted_questions[0])
     return new_question
+
+
+def question_view_count_increase(id):
+    questions = connection.import_data('ask-mate-python/sample_data/question.csv')
+    for question in questions:
+        if question['id'] == id:
+            question['view_number'] = str(int(question['view_number']) + 1)
+    connection.write_file(questions, 'ask-mate-python/sample_data/question.csv')
