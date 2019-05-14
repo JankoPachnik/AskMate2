@@ -1,5 +1,7 @@
 import connection
 import data_manager_operations
+import uuid
+import datetime
 
 
 def get_questions():
@@ -36,3 +38,22 @@ def question_view_count_increase(id):
         if question['id'] == id:
             question['view_number'] = str(int(question['view_number']) + 1)
     connection.write_file(questions, 'ask-mate-python/sample_data/question.csv')
+
+
+def new_question(request):
+    data = datetime.now()
+    data = str(data)
+
+    new_question = {
+        'id': uuid.uuid4(),
+        'submission_time': data,
+        'view_number': 0,
+        'vote_number': 0,
+        'title': request.form['title'],
+        'message': request.form["message"],
+        'image': None
+    }
+    new_data = get_questions()
+    new_data.append(new_question)
+    return new_data
+
