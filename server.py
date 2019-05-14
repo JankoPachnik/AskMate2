@@ -3,19 +3,14 @@ import connection
 import data_manager_questions
 import data_manager_answers
 from flask import Flask, render_template, request, redirect
-#from flask_uploads import UploadSet, configure_uploads, IMAGES
-
-
-import uuid
+# from flask_uploads import UploadSet, configure_uploads, IMAGES
 app = Flask(__name__)
 
-
-app = Flask(__name__)
-#photos = UploadSet('photos', IMAGES)
+# photos = UploadSet('photos', IMAGES)
 
 
 app.config['UPLOADED_PHOTOS_DEST'] = 'ask-mate-python/static/images'
-#configure_uploads(app, photos)
+# configure_uploads(app, photos)
 
 
 @app.route('/')
@@ -43,6 +38,7 @@ def sorted_by_vote():
     questions = data_manager_questions.sorting_questions("by_vote", value)
     connection.write_file(questions, 'ask-mate-python/sample_data/question.csv')
     return redirect('/list')
+
 
 
 @app.route('/show_question/<id>')       #transfers id from list of questions
@@ -73,43 +69,29 @@ def add_question():
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
-    data = datetime.now()
-    data = str(data)
-    if request.method == 'POST':
-        new_question = {
-        'id': uuid.uuid4(),
-        'submission_time': data,
-        'view_number': 0,
-        'vote_number': 0,
-            'title': request.form['title'],
-            'message': request.form["message"],
-            'image': None
-        }
 
+    if request.method == 'POST':
+        new_data = data_manager_questions.new_question(request)
     else:
         return render_template('add.html')
 
-    new_data = data_manager_questions.get_questions()
-    new_data.append(new_question)
     connection.write_file(new_data, 'ask-mate-python/sample_data/question.csv')
-    print('NoError')
     return redirect('/list')
 
 
-@app.route('/question/<question_id>/delete') #delete question
+@app.route('/question/<question_id>/delete')  # delete question
 def route_delete_question(question_id):
     data_manager_questions.delete_element("question", question_id)
     return redirect('/list')
 
 
-@app.route('/answer/<combined_id>/delete') #delete answer
+@app.route('/answer/<combined_id>/delete') # delete answer
 def route_delete_answer(combined_id):
     answer_id = combined_id.split('_')[0]
     question_id = combined_id.split('_')[1]
     data_manager_questions.delete_element("answer", answer_id)
     return redirect('/show_question/' + question_id)
 
-#test234
 
 @app.route('/list/<id>/down', methods=['GET', 'POST'])
 def vote_system_minus(id):
