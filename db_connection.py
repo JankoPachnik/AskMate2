@@ -4,10 +4,10 @@ import psycopg2
 def main():
     try:
         # setup connection string
-        user_name = "***"
-        password = "***"
-        host = "***"
-        database_name = "***"
+        user_name = "michalkandybowicz"
+        password = "Miki2403"
+        host = "localhost"
+        database_name = "new_database"
 
         # this string describes all info for psycopg2 to connect to the database
         connect_str = "postgresql://{user_name}:{password}@{host}/{database_name}".format(
