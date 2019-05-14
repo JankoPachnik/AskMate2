@@ -1,9 +1,10 @@
 import connection
 import data_manager_operations
+import db_connection
 
 
 def get_questions():
-    q_list = connection.import_data('ask-mate-python/sample_data/question.csv')
+    q_list = db_connection.question_data()
     return q_list
 
 

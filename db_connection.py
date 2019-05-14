@@ -25,8 +25,6 @@ def answer_data():
         cursor.execute("SELECT * FROM answer;")
         data = cursor.fetchall()
 
-        print(data)
-
         data = data_transformation(data)
 
         cursor.close()
@@ -66,6 +64,8 @@ def question_data():
         cursor.execute("SELECT * FROM question;")
         data = cursor.fetchall()
 
+        data = data_transformation(data)
+
         cursor.close()
 
         return data
@@ -83,16 +83,18 @@ def data_transformation(data_from_sql):
     FIRST_INDEX = 0
     keys = data_from_sql[FIRST_INDEX]
     trans_data = []
-    new_dict = {}
 
     for list_of_data in data_from_sql:
+        new_dict = {}
         for i in range(len(keys)):
             new_dict[keys[i]] = list_of_data[i]
-
         trans_data.append(new_dict)
-        new_dict.clear()
 
-    print(trans_data)
+    trans_data.pop(FIRST_INDEX)
     return trans_data
 
-answer_data()
+
+#def write_answers():
+
+
+#def write_questins():
