@@ -1,10 +1,12 @@
+import db_connection
 import connection
 import uuid
 from datetime import datetime
 
 
 def get_all_answers():
-    a_list = connection.import_data('ask-mate-python/sample_data/answer.csv')
+    a_list = db_connection.answer_data()
+
     return a_list
 
 
