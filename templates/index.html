@@ -6,7 +6,6 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_v2.css') }}">
 </head>
     <body>
-
     <div class="top">
         <div class="inside">
             <ul>
@@ -23,22 +22,15 @@
             Hottest Question
         </div>
     </div>
+
     <div class="right">
         <div class="inside">
-            Newest Question:
-            <table class="new_question">
-                <td>{{ new['title'] }} </td>
-                <td>{{ new['message'] }} </td>
-                <td>{{ new['submission_time'] }} </td>
-                <td>{{ new['view_number'] }} </td>
-                <td>{{ new['vote_number'] }} </td>
             </table>
         </div>
     </div>
 
     <div class="bottom">
         <div class="inside">
-
         </div>
     </div>
 
