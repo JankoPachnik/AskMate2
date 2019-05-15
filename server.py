@@ -83,11 +83,9 @@ def route_delete_question(question_id):
     return redirect('/list')
 
 
-@app.route('/answer/<combined_id>/delete') # delete answer
-def route_delete_answer(combined_id):
-    answer_id = combined_id.split('_')[0]
-    question_id = combined_id.split('_')[1]
-    data_manager_questions.delete_element("answer", answer_id)
+@app.route('/answer/<answer_id>/delete/<question_id>')  # delete answer
+def route_delete_answer(answer_id, question_id):
+    data_manager_answers.delete_element("answer", answer_id)
     return redirect('/show_question/' + question_id)
 
 

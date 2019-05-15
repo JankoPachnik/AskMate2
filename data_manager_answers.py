@@ -23,3 +23,6 @@ def get_answers_to_question(id_from_question):
     answers = db_connection.sql_data(sql_query, "read", id_from_question)
     return answers
 
+
+def delete_answers_element(element_id):
+    pass

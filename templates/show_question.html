@@ -65,7 +65,9 @@
                             {% else %}
                                 <td><img src="http://placehold.it/80" alt="Example image" class="button" style="height:70px; width:auto;"></td>
                             {% endif %}
-                    <td><a href="/answer/{{ answer['id'] + '_' + question['id'] }}/delete"><button id="delete" type="submit" formmethod="post"><span>DELETE</span></button></a></td>
+                        <td><a href="/answer/{{ answer['id'] }}/delete/{{ question['id'] }}">
+                            <button id="delete" type="submit" formmethod="post"><span>DELETE</span></button>
+                        </a></td>
                     </tr>
                 {% endfor %}
                 </table>

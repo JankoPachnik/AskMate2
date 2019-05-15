@@ -49,3 +49,9 @@ def new_question(request):
     sql_query = """INSERT INTO question (ID, submission_time, view_number, vote_number, title, message, image) 
     VALUES (%s, %s, %s, %s, %s, %s)"""
     db_connection.sql_data(sql_query, "write", question)
+
+
+def delete_question_element(element_id):
+    '''
+    kasuje tylko odpowiedz (opcja dodania też usó∑ania komentów)
+    '''
