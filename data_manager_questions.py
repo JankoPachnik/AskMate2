@@ -53,3 +53,26 @@ def delete_question_element(element_id):
     db_connection.sql_data(sql_query_question, "write", element_id)
     sql_query_answer = """DELETE FROM answer WHERE question_id = %s;"""
     db_connection.sql_data(sql_query_answer, "write", element_id)
+
+
+def vote_questions_plus(id):
+    sql_read = """SELECT * FROM question WHERE id = %s;"""
+    questions = db_connection.sql_data(sql_read, "read", id)
+    for question in questions:
+        data = (question["vote_number"] + 1, id)
+    sql_update = """UPDATE question
+            SET vote_number = %s
+            WHERE id = %s;"""
+    db_connection.sql_data(sql_update, "update", data)
+
+
+def vote_questions_minus(id):
+    sql_read = """SELECT * FROM question WHERE id = %s;"""
+    questions = db_connection.sql_data(sql_read, "read", id)
+    for question in questions:
+        data = (question["vote_number"] - 1, id)
+    sql_update = """UPDATE question
+                SET vote_number = %s
+                WHERE id = %s;"""
+    db_connection.sql_data(sql_update, "update", data)
+

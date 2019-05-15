@@ -89,47 +89,28 @@ def route_delete_answer(answer_id, question_id):
     return redirect('/show_question/' + question_id)
 
 
-'''@app.route('/list/<id>/down', methods=['GET', 'POST'])
+@app.route('/list/<id>/down', methods=['GET', 'POST'])
 def vote_system_minus(id):
-    all_questions = data_manager_questions.get_questions()
-    FIRST_INDEX = 0
-    for question in all_questions:
-        if id == question[FIRST_INDEX]:
-            question[3] = int(question[3]) - 1
-            data_manager_sql.write_questions(all_questions)
+    data_manager_questions.vote_questions_minus(id)
     return redirect('/list')
 
 
 @app.route('/list/<id>/up', methods=['GET', 'POST'])
 def vote_system_plus(id):
-    all_answers = data_manager_questions.get_questions()
-    for answer in all_answers:
-        if id == answer['id']:
-            answer['vote_number'] = int(answer['vote_number']) + 1
-            connection.write_file(all_answers, 'ask-mate-python/sample_data/question.csv')
-    return redirect('/list')'''
+    data_manager_questions.vote_questions_plus(id)
+    return redirect('/list')
 
 
-'''@app.route('/answer/<answer_id>/vote-down/<question_id>', methods=['GET', 'POST'])
+@app.route('/answer/<answer_id>/vote-down/<question_id>', methods=['GET', 'POST'])
 def vote_ask_minus(answer_id, question_id):
-    all_answers = data_manager_answers.get_all_answers()
-    for answer in all_answers:
-        if answer_id == answer['id']:
-            answer['vote_number'] = int(answer['vote_number']) - 1
-            connection.write_file(all_answers, 'ask-mate-python/sample_data/answer.csv')
-    question_id = str(question_id)
+    data_manager_answers.vote_answers_minus(answer_id)
     return redirect('/show_question/' + question_id)
 
 
 @app.route('/answer/<answer_id>/vote-up/<question_id>', methods=['GET', 'POST'])
 def vote_ask_plus(answer_id, question_id):
-    all_answers = data_manager_answers.get_all_answers()
-    for answer in all_answers:
-        if answer_id == answer['id']:
-            answer['vote_number'] = int(answer['vote_number']) + 1
-            connection.write_file(all_answers, 'ask-mate-python/sample_data/answer.csv')
-    question_id = str(question_id)
-    return redirect('/show_question/' + question_id)'''
+    data_manager_answers.vote_answers_plus(answer_id)
+    return redirect('/show_question/' + question_id)
 
 
 @app.route('/show_question/<id>/edit', methods=['POST', 'GET'])
