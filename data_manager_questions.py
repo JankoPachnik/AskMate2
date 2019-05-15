@@ -1,6 +1,5 @@
 import datetime
 
-import data_manager_operations
 import db_connection
 
 
@@ -43,7 +42,6 @@ def question_view_count_increase(id):
 def new_question(request):
     data = datetime.datetime.now()
     data = str(data)
-    id = str(data_manager_operations.generate_user_id())
     question = (data, "0", "0", request['title'], request["message"], None)
     sql_query = """INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
     VALUES (%s, %s, %s, %s, %s, %s);"""

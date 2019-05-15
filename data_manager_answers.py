@@ -1,6 +1,5 @@
 from datetime import datetime
 
-import data_manager_operations
 import db_connection
 
 
@@ -11,10 +10,9 @@ def get_all_answers():
 
 
 def add_answer(form_data, id):
-    answer_id = str(data_manager_operations.generate_user_id())
-    new_answer = (answer_id, datetime.now(), 0, id, form_data['answer'], None)
-    sql_query = """INSERT INTO answer (ID, submission_time, vote_number, question_id, message, image) 
-    VALUES (%s, %s, %s, %s, %s, %s)"""
+    new_answer = (datetime.now(), 0, id, form_data['answer'], None)
+    sql_query = """INSERT INTO answer (submission_time, vote_number, question_id, message, image) 
+    VALUES (%s, %s, %s, %s, %s)"""
     db_connection.sql_data(sql_query, "write", new_answer)
 
 
