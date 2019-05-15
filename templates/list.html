@@ -55,12 +55,14 @@
                             </td>
                             {% if question['image'] %}
                             <td><img src="/static/{{ question['image'] }}" alt="Example image" class="img-thumbnail" style="height:70px; width:auto;"></td>
-                        {% else %}
-                            <td><img src="http://placehold.it/80" alt="Example image" class="img-thumbnail" style="height:70px; width:auto;"></td>
-                        {% endif %}
-                            <td><a href="/question/{{ question['id'] }}/delete"><button type="submit" formmethod="post" id="delete"><span>DELETE</span></button></a>
-                        </tr>
+                            {% else %}
+                                <td><img src="http://placehold.it/80" alt="Example image" class="img-thumbnail" style="height:70px; width:auto;"></td>
+                            {% endif %}
+                                <td><a href="/question/{{ question['id'] }}/delete"><button type="submit" formmethod="post" id="delete"><span>DELETE</span></button></a>
+                    </tr>
                 {% endfor %}
                 </table>
-
+            </div>
+        </div>
     </body>
+</html>

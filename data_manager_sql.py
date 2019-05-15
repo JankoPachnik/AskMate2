@@ -1,6 +1,3 @@
-import psycopg2
-
-
 def data_transformation(data_from_sql):
     FIRST_INDEX = 0
     keys = data_from_sql[FIRST_INDEX]
@@ -14,9 +11,3 @@ def data_transformation(data_from_sql):
 
     trans_data.pop(FIRST_INDEX)
     return trans_data
-
-
-#def write_answers(data):
-
-
-#def write_questins(data):
