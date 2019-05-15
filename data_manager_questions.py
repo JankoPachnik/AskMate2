@@ -11,7 +11,7 @@ def get_questions():
 
 
 def one_question(id_of_question):
-    sql_query = """SELECT * FROM question WHERE id = %s;"""
+    sql_query = """SELECT * FROM question WHERE id = %s"""
     question = db_connection.sql_data(sql_query, "read", id_of_question)
     return question
 
@@ -44,14 +44,14 @@ def new_question(request):
     data = datetime.datetime.now()
     data = str(data)
     id = str(data_manager_operations.generate_user_id())
-    question = (id, data, "0", "0", request['title'], request["message"], "NULL")
+    question = (id, data, "0", "0", request['title'], request["message"], None)
     sql_query = """INSERT INTO question (ID, submission_time, view_number, vote_number, title, message, image) 
     VALUES (%s, %s, %s, %s, %s, %s, %s);"""
     db_connection.sql_data(sql_query, "write", question)
 
 
 def delete_question_element(element_id):
-    '''
-    kasuje tylko odpowiedz (opcja dodania też usó∑ania komentów)
-    '''
-
+    sql_query_question = """DELETE FROM question WHERE id = %s;"""
+    db_connection.sql_data(sql_query_question, "write", element_id)
+    sql_query_answer = """DELETE FROM answer WHERE question_id = %s;"""
+    db_connection.sql_data(sql_query_answer, "write", element_id)

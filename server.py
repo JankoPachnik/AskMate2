@@ -79,13 +79,13 @@ def add():
 
 @app.route('/question/<question_id>/delete')  # delete question
 def route_delete_question(question_id):
-    data_manager_questions.delete_element("question", question_id)
+    data_manager_questions.delete_question_element(question_id)
     return redirect('/list')
 
 
 @app.route('/answer/<answer_id>/delete/<question_id>')  # delete answer
 def route_delete_answer(answer_id, question_id):
-    data_manager_answers.delete_element("answer", answer_id)
+    data_manager_answers.delete_answer_element(answer_id)
     return redirect('/show_question/' + question_id)
 
 

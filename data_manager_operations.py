@@ -15,4 +15,6 @@ def sorting_questions(descending):
 
 def generate_user_id():
     unique_id = string.ascii_letters + string.digits
-    return ''.join(random.choice(unique_id) for i in range(9))
+    unique_id = ''.join(random.choice(unique_id) for i in range(9))
+    unique_id = str(unique_id)
+    return unique_id
