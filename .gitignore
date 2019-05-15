@@ -102,5 +102,3 @@ ENV/
 
 # pycharm files
 .idea/
-
-db_connection.py
