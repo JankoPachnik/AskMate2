@@ -11,7 +11,7 @@ def get_questions():
 
 
 def one_question(id_of_question):
-    sql_query = """SELECT * FROM question WHERE id = %s"""
+    sql_query = """SELECT * FROM question WHERE id=%s;"""
     question = db_connection.sql_data(sql_query, "read", id_of_question)
     return question
 
@@ -44,9 +44,9 @@ def new_question(request):
     data = datetime.datetime.now()
     data = str(data)
     id = str(data_manager_operations.generate_user_id())
-    question = (id, data, "0", "0", request['title'], request["message"], None)
-    sql_query = """INSERT INTO question (ID, submission_time, view_number, vote_number, title, message, image) 
-    VALUES (%s, %s, %s, %s, %s, %s, %s);"""
+    question = (data, "0", "0", request['title'], request["message"], None)
+    sql_query = """INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
+    VALUES (%s, %s, %s, %s, %s, %s);"""
     db_connection.sql_data(sql_query, "write", question)
 
 
