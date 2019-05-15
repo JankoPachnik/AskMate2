@@ -1,62 +1,58 @@
-from datetime import datetime
-import connection
-import data_manager
 from flask import Flask, render_template, request, redirect
-#from flask_uploads import UploadSet, configure_uploads, IMAGES
 
+import connection
+import data_manager_answers
+import data_manager_questions
 
-import uuid
+# from flask_uploads import UploadSet, configure_uploads, IMAGES
 app = Flask(__name__)
 
-
-app = Flask(__name__)
-#photos = UploadSet('photos', IMAGES)
+# photos = UploadSet('photos', IMAGES)
 
 
 app.config['UPLOADED_PHOTOS_DEST'] = 'ask-mate-python/static/images'
-#configure_uploads(app, photos)
+# configure_uploads(app, photos)
 
 
 @app.route('/')
 def main_page():
-    new = data_manager.newest_question()
-    return render_template("index.html", new=new)
+    return render_template("index.html")
 
 
 @app.route('/list')
 def list_of_questions():
-    questions = data_manager.get_questions()
+    questions = data_manager_questions.get_questions()
     return render_template('list.html', questions=questions)
 
 
 @app.route('/list/sorted/by_date')
 def sorted_by_date():
-    value = data_manager.checker('submission_time')
-    questions = data_manager.sorting_questions("by_date", value)
+    value = data_manager_questions.checker('submission_time')
+    questions = data_manager_questions.sorting_questions("by_date", value)
     connection.write_file(questions, 'ask-mate-python/sample_data/question.csv')
     return redirect("/list")
 
 
 @app.route('/list/sorted/by_vote')
 def sorted_by_vote():
-    value = data_manager.checker('vote_number')
-    questions = data_manager.sorting_questions("by_vote", value)
+    value = data_manager_questions.checker('vote_number')
+    questions = data_manager_questions.sorting_questions("by_vote", value)
     connection.write_file(questions, 'ask-mate-python/sample_data/question.csv')
     return redirect('/list')
 
 
 @app.route('/show_question/<id>')       #transfers id from list of questions
 def show_question(id):
-    data_manager.question_view_count_increase(id)
-    question = data_manager.one_question(id)
-    answers = data_manager.get_answers_to_question(id)
-    return render_template("show_question.html", question=question, answers=answers, id=id)
+    #data_manager_questions.question_view_count_increase(id)
+    questions = data_manager_questions.one_question(id)
+    answers = data_manager_answers.get_answers_to_question(id)
+    return render_template("show_question.html", questions=questions, answers=answers, id=id)
 
 
 @app.route('/question/<id>/new-answer', methods=['GET', 'POST'])
 def route_new_answer(id):
     if request.method == 'POST':
-        data_manager.add_answer(request.form, id)
+        data_manager_answers.add_answer(request.form, id)
         return redirect('/show_question/' + id)
     return render_template('answer.html', id=id)
 
@@ -71,85 +67,49 @@ def add_question():
     return render_template("add.html")
 
 
-
 @app.route('/add', methods=['GET', 'POST'])
 def add():
-    data = datetime.now()
-    data = str(data)
+    data = request.form
     if request.method == 'POST':
-        new_question = {
-        'id': uuid.uuid4(),
-        'submission_time': data,
-        'view_number': 0,
-        'vote_number': 0,
-            'title': request.form['title'],
-            'message': request.form["message"],
-            'image': None
-        }
-
+        data_manager_questions.new_question(data)
     else:
         return render_template('add.html')
-
-    new_data = data_manager.get_questions()
-    new_data.append(new_question)
-    connection.write_file(new_data, 'ask-mate-python/sample_data/question.csv')
-    print('NoError')
     return redirect('/list')
 
 
-@app.route('/question/<question_id>/delete') #delete question
+@app.route('/question/<question_id>/delete')  # delete question
 def route_delete_question(question_id):
-    data_manager.delete_element("question", question_id)
+    data_manager_questions.delete_question_element(question_id)
     return redirect('/list')
 
 
-@app.route('/answer/<combined_id>/delete') #delete answer
-def route_delete_answer(combined_id):
-    answer_id = combined_id.split('_')[0]
-    question_id = combined_id.split('_')[1]
-    data_manager.delete_element("answer", answer_id)
+@app.route('/answer/<answer_id>/delete/<question_id>')  # delete answer
+def route_delete_answer(answer_id, question_id):
+    data_manager_answers.delete_answer_element(answer_id)
     return redirect('/show_question/' + question_id)
 
 
 @app.route('/list/<id>/down', methods=['GET', 'POST'])
 def vote_system_minus(id):
-    all_answers = data_manager.get_questions()
-    for answer in all_answers:
-        if id == answer['id']:
-            answer['vote_number'] = int(answer['vote_number']) - 1
-            connection.write_file(all_answers, 'ask-mate-python/sample_data/question.csv')
+    data_manager_questions.vote_questions_minus(id)
     return redirect('/list')
 
 
 @app.route('/list/<id>/up', methods=['GET', 'POST'])
 def vote_system_plus(id):
-    all_answers = data_manager.get_questions()
-    for answer in all_answers:
-        if id == answer['id']:
-            answer['vote_number'] = int(answer['vote_number']) + 1
-            connection.write_file(all_answers, 'ask-mate-python/sample_data/question.csv')
+    data_manager_questions.vote_questions_plus(id)
     return redirect('/list')
 
 
 @app.route('/answer/<answer_id>/vote-down/<question_id>', methods=['GET', 'POST'])
 def vote_ask_minus(answer_id, question_id):
-    all_answers = data_manager.get_all_answers()
-    for answer in all_answers:
-        if answer_id == answer['id']:
-            answer['vote_number'] = int(answer['vote_number']) - 1
-            connection.write_file(all_answers, 'ask-mate-python/sample_data/answer.csv')
-    question_id = str(question_id)
+    data_manager_answers.vote_answers_minus(answer_id)
     return redirect('/show_question/' + question_id)
 
 
 @app.route('/answer/<answer_id>/vote-up/<question_id>', methods=['GET', 'POST'])
 def vote_ask_plus(answer_id, question_id):
-    all_answers = data_manager.get_all_answers()
-    for answer in all_answers:
-        if answer_id == answer['id']:
-            answer['vote_number'] = int(answer['vote_number']) + 1
-            connection.write_file(all_answers, 'ask-mate-python/sample_data/answer.csv')
-    question_id = str(question_id)
+    data_manager_answers.vote_answers_plus(answer_id)
     return redirect('/show_question/' + question_id)
 
 
@@ -157,11 +117,11 @@ def vote_ask_plus(answer_id, question_id):
 def route_question_edit(id):
     edit = True
     action = '/show_question/' + id + '/edit'
-    question = data_manager.one_question(id)
+    question = data_manager_answers.one_question(id)
     if request.method == 'POST':
         title = request.form['title']
         description = request.form['message']
-        data_manager.update_question(id, title, description, "question")
+        data_manager_questions.update_question(id, title, description, "question")
         return redirect('/show_question/' + id)
     return render_template('edit.html', edit=edit, question=question, id=id, action=action)
 
@@ -180,7 +140,7 @@ def upload():
         id = answer_id if answer_id else question_id
         file_type = "answer" if answer_id else "question"
 
-        data_manager.update_image(file_type, filename, id)
+        data_manager_questions.update_image(file_type, filename, id)
         return redirect('/show_question/' + question_id)
 
 
