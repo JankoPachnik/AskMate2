@@ -44,9 +44,9 @@ def sorted_by_vote():
 @app.route('/show_question/<id>')       #transfers id from list of questions
 def show_question(id):
     #data_manager_questions.question_view_count_increase(id)
-    question = data_manager_questions.one_question(id)
+    questions = data_manager_questions.one_question(id)
     answers = data_manager_answers.get_answers_to_question(id)
-    return render_template("show_question.html", question=question, answers=answers, id=id)
+    return render_template("show_question.html", questions=questions, answers=answers, id=id)
 
 
 @app.route('/question/<id>/new-answer', methods=['GET', 'POST'])

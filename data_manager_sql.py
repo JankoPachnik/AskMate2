@@ -10,8 +10,5 @@ def data_transformation(data_from_sql):
             for i in range(len(keys)):
                 new_dict[keys[i]] = list_of_data[i]
             trans_data.append(new_dict)
-        if len(trans_data) == 1 and keys == 7:
-            trans_data2 = trans_data[0]
-            return trans_data2
         return trans_data
     pass

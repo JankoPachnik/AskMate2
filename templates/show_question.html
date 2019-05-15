@@ -19,6 +19,7 @@
         <div class="big_center">
             <div class="inside">
                 <table>
+                {% for question in questions %}
                     <td>{{ question['title'] }} </td>
                     <td>{{ question['message'] }} </td>
                     <td>{{ question['submission_time'] }} </td>
@@ -38,6 +39,7 @@
                     <td><a href="/question/{{ question['id'] }}/delete"><i class="fas fa-trash text-danger"></i></a></td>
                     <a href="/question/{{ question['id'] }}/new-answer"><button><span>Answer</span></button></a>
                     <a href="/show_question/{{ question['id'] }}/edit"><button><span>(R)Eddit</span></button></a>
+                {% endfor %}
                 </table>
             </div>
         </div>
@@ -59,15 +61,17 @@
                             <td class="green" >{{ answer['vote_number'] }} </td>
 
                         {% endif %}
-                        <td><a href="/answer/{{ answer['id'] }}/vote-up/{{ question['id'] }}"> <img border="0" src="/static/up.png" width="50" height="50"></a></td>
-                        <td><a href="/answer/{{ answer['id'] }}/vote-down/{{ question['id'] }}"> <img src="/static/down.png" width="50" height="50"></a></td>
-                        {% if answer['image'] %}
+                        {% for question in questions %}
+                            <td><a href="/answer/{{ answer['id'] }}/vote-up/{{ question['id'] }}"> <img border="0" src="/static/up.png" width="50" height="50"></a></td>
+                            <td><a href="/answer/{{ answer['id'] }}/vote-down/{{ question['id'] }}"> <img src="/static/down.png" width="50" height="50"></a></td>
+                         {% if answer['image'] %}
                                     <td><img src="/static/{{ answer['image'] }}" alt="Example image" class="img-thumbnail" style="height:70px; width:auto;"></td>
                                 {% else %}
                                     <td><img src="http://placehold.it/80" alt="Example image" class="button" style="height:70px; width:auto;"></td>
                                 {% endif %}
                             <td><a href="/answer/{{ answer['id'] }}/delete/{{ question['id'] }}">
                                 <button id="delete" type="submit" formmethod="post"><span>DELETE</span></button>
+                         {% endfor %}
                             </a></td>
                         </tr>
                     {% endfor %}
