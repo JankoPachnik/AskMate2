@@ -31,7 +31,7 @@ def sql_data(sql_query, operation_type, data=None):
             return data
 
         elif operation_type == "write":
-            cursor.executemany(sql_query, data)
+            cursor.execute(sql_query, data)
 
         else:
             cursor.execute(sql_query, data)

@@ -1,7 +1,7 @@
+import random
+import string
+
 import db_connection
-
-
-#def delete_element(element_type, element_id):          #to trzeba zrobic od nowa
 
 
 def sorting_questions(descending):
@@ -11,3 +11,8 @@ def sorting_questions(descending):
         sql_query = """SELECT * FROM question ORDER BY vote_number ASC ;"""
     questions = db_connection.sql_data(sql_query, "read")
     return questions
+
+
+def generate_user_id():
+    unique_id = string.ascii_letters + string.digits
+    return ''.join(random.choice(unique_id) for i in range(9))
