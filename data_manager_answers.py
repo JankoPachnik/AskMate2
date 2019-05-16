@@ -22,7 +22,7 @@ def get_answers_to_question(id_from_question):
     return answers
 
 
-def delete_answer_element(element_id):
+def delete_answer_element(element_id):  #usuwanie commentarzy do odpowiedzi
     sql_query_answer = """DELETE FROM answer WHERE id = %s;"""
     db_connection.sql_data(sql_query_answer, "write", element_id)
 

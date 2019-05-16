@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect
 
-import connection
 import data_manager_answers
 import data_manager_questions
 import data_manager_comment
@@ -36,12 +35,12 @@ def sorted_by_vote():
     return render_template('list.html', questions=questions)
 
 
-@app.route('/show_question/<id>')       #transfers id from list of questions
-def show_question(id):                  #referred id ?comes from answer id?
+@app.route('/show_question/<id>')       #dodanie wyswietlania commentarzy
+def show_question(id):
     data_manager_questions.question_view_count_increase(id)
-    questions = data_manager_questions.one_question(id)
+    question_one = data_manager_questions.one_question(id)
     answers = data_manager_answers.get_answers_to_question(id)
-    return render_template("show_question.html", questions=questions, answers=answers, id=id)
+    return render_template("show_question.html", questions=question_one, answers=answers, id=id)
 
 
 @app.route('/add_comment/<id>', methods=['GET', 'POST'])
@@ -51,12 +50,6 @@ def add_comment(id):
         data_manager_comment.add_comment(data, id)
         return redirect('/show_question/' + id)
     return render_template('add_comment.html', id=id)
-
-
-@app.route('/show_comments/<id>', methods=['GET'])
-def show_comments(id):
-
-    return render_template('show_comments.html', )
 
 
 @app.route('/question/<id>/new-answer', methods=['GET', 'POST'])

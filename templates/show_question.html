@@ -73,8 +73,17 @@
                          {% endfor %}
                             </a></td>
                         </tr>
-                    {% endfor %}
+                        {% if comments %}
+                            {% for comment in comments %}
+                                {% if comment['answer_id'] == answer['id'] %}
+                                    <div class = "comment">
+                                        <div class="inside">
 
+
+                                        </div>
+                                    </div>
+                                {% endif %}
+                        {% endfor %}
                 </table>
             </div>
         </div>
