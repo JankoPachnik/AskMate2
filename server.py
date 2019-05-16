@@ -13,7 +13,8 @@ app.config['UPLOADED_PHOTOS_DEST'] = 'ask-mate-python/static/images'
 
 @app.route('/')
 def main_page():
-    return render_template("index.html")
+    best_question = data_manager_questions.best_questions()
+    return render_template("index.html", best_question=best_question)
 
 
 @app.route('/list')

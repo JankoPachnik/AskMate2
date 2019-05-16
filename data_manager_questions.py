@@ -79,3 +79,9 @@ def vote_questions_minus(id):
                 WHERE id = %s;"""
     db_connection.sql_data(sql_update, "update", data)
 
+
+def best_questions():
+    sql_read = """SELECT * FROM question ORDER BY vote_number DESC LIMIT 1;"""
+    question = db_connection.sql_data(sql_read, "read", id)
+    return question
+
