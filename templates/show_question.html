@@ -30,12 +30,6 @@
                     {% else %}
                         <td><img src="http://placehold.it/80" alt="Example image" class="img-thumbnail" style="height:70px; width:auto;"></td>
                     {% endif %}
-                    <form method=POST enctype=multipart/form-data action='/upload?question_id={{ question["id"] }}'>
-                        <label class="btn btn-primary btn-sm">
-                            Browse <input type="file" style="display: none;" name="photo">
-                        </label>
-                    </form>
-                    <button class="btn btn-primary btn-sm" type="submit">Upload</button></form></td>
                     <td><a href="/question/{{ question['id'] }}/delete"><i class="fas fa-trash text-danger"></i></a></td>
                     <a href="/question/{{ question['id'] }}/new-answer"><button><span>Answer</span></button></a>
                     <a href="/show_question/{{ question['id'] }}/edit"><button><span>(R)Eddit</span></button></a>

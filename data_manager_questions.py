@@ -1,5 +1,4 @@
 import datetime
-
 import db_connection
 
 
@@ -82,6 +81,19 @@ def vote_questions_minus(id):
 
 def best_questions():
     sql_read = """SELECT * FROM question ORDER BY vote_number DESC LIMIT 1;"""
-    question = db_connection.sql_data(sql_read, "read", id)
+    question = db_connection.sql_data(sql_read, "read")
     return question
+
+
+def sort_vote():
+    sql_read = """SELECT * FROM question ORDER BY vote_number DESC"""
+    questions = db_connection.sql_data(sql_read, "read")
+    return questions
+
+
+def sort_time():
+    sql_read = """SELECT * FROM question ORDER BY submission_time DESC"""
+    questions = db_connection.sql_data(sql_read, "read")
+    return questions
+
 

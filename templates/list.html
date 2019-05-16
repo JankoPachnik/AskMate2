@@ -11,8 +11,8 @@
             <div class="inside">
                 <ul>
                     <li><a href="/">Main Menu</a></li>
-                    <li><a href="add">Add question</a></li>
-                    <li><a href="list">Questions</a></li>
+                    <li><a href="/add">Add question</a></li>
+                    <li><a href="/list">Questions</a></li>
                     <li id="about"><a href="about">About</a></li>
                 </ul>
             </div>
@@ -34,7 +34,7 @@
                 {% for question in questions  %}
                         <tr>
                             <td>{{ loop.index }} </td>
-                            <td id="border"><a class="list" href="show_question/{{ question['id'] }}">{{ question['title'] }} </a></td>
+                            <td id="border"><a class="list" href="/show_question/{{ question['id'] }}">{{ question['title'] }} </a></td>
                             <td>{{ question['message'] }} </td>
                             <td>{{ question['submission_time'] }} </td>
                             <td>{{ question['view_number'] }} </td>
@@ -48,10 +48,10 @@
                             {% endif %}
 
                             <td>
-                                <a href="list/{{ question['id'] }}/up"><img border="0" src="static/up.png" width="50" height="50"></a>
+                                <a href="/list/{{ question['id'] }}/up"><img border="0" src="/static/up.png" width="50" height="50"></a>
                             </td>
                             <td>
-                                <a href="list/{{ question['id'] }}/down"><img border="0" src="static/down.png" width="50" height="50"></a>
+                                <a href="/list/{{ question['id'] }}/down"><img border="0" src="/static/down.png" width="50" height="50"></a>
                             </td>
                             {% if question['image'] %}
                             <td><img src="/static/{{ question['image'] }}" alt="Example image" class="img-thumbnail" style="height:70px; width:auto;"></td>

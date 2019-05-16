@@ -13,8 +13,9 @@ app.config['UPLOADED_PHOTOS_DEST'] = 'ask-mate-python/static/images'
 
 @app.route('/')
 def main_page():
+    newest_question = data_manager_questions.newest_question()
     best_question = data_manager_questions.best_questions()
-    return render_template("index.html", best_question=best_question)
+    return render_template("index.html", newest_question=newest_question, best_question=best_question)
 
 
 @app.route('/list')
@@ -25,18 +26,14 @@ def list_of_questions():
 
 @app.route('/list/sorted/by_date')
 def sorted_by_date():
-    value = data_manager_questions.checker('submission_time')
-    questions = data_manager_questions.sorting_questions("by_date", value)
-    connection.write_file(questions, 'ask-mate-python/sample_data/question.csv')
-    return redirect("/list")
+    questions = data_manager_questions.sort_time()
+    return render_template('list.html', questions=questions)
 
 
 @app.route('/list/sorted/by_vote')
 def sorted_by_vote():
-    value = data_manager_questions.checker('vote_number')
-    questions = data_manager_questions.sorting_questions("by_vote", value)
-    connection.write_file(questions, 'ask-mate-python/sample_data/question.csv')
-    return redirect('/list')
+    questions = data_manager_questions.sort_vote()
+    return render_template('list.html', questions=questions)
 
 
 @app.route('/show_question/<id>')       #transfers id from list of questions
