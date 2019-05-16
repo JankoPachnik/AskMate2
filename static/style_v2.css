@@ -1,16 +1,16 @@
 html, body{
     height: 100%;
-    background-color: #404040;
+    background-color: lightskyblue;
 }
 
 div {
-  box-shadow: 10px 10px 5px deeppink;
+    box-shadow: 10px 10px 5px white;
+    background-color: #c095ff;
 }
 
 div.big_center{
     display: block;
     float: left;
-    background-color: darkorange;
     padding: 1%;
     width: 70%;
     margin-left: 12%;
@@ -20,7 +20,6 @@ div.big_center{
 div.second_center{
     display: block;
     float: left;
-    background-color: darkorange;
     padding: 1%;
     width: 70%;
     margin-left: 12%;
@@ -30,7 +29,6 @@ div.second_center{
 div.left{
     display: block;
     float: left;
-    background-color: darkorange;
     padding: 1%;
     width: 20%;
     height: 35%;
@@ -41,7 +39,6 @@ div.left{
 div.right{
     display: block;
     float: left;
-    background-color: darkorange;
     padding: 1%;
     width: 35%;
     height: 35%;
@@ -53,7 +50,6 @@ div.right{
 div.top{
     display: block;
     float: left;
-    background-color: darkorange;
     padding: 1%;
     width: 70%;
     height: 6%;
@@ -66,10 +62,11 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: grey;
+    background-color: white;
     width: 100%;
     height: 100%;
     font-size: larger;
+    text-decoration: none;
 }
 
 li {
@@ -78,10 +75,9 @@ li {
 
 li a {
     display: block;
-    color: white;
+    color: black;
     text-align: center;
     padding: 14px 16px;
-    text-decoration: none;
 }
 
 li a:hover {
@@ -91,7 +87,6 @@ li a:hover {
 div.bottom{
     display: block;
     float: left;
-    background-color: darkorange;
     padding: 1%;
     width: 60%;
     height: 7%;
