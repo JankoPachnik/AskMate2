@@ -8,3 +8,4 @@ def sorting_questions(descending):
         sql_query = """SELECT * FROM question ORDER BY vote_number ASC ;"""
     questions = db_connection.sql_data(sql_query, "read")
     return questions
+
