@@ -19,16 +19,13 @@
 
     <div class="left">
         <div class="inside">
-            Goronce
             {% for question in best_question  %}
-
             <tr>
                 <td>{{ question['title'] }} </td>
                 <td>{{ question['message'] }} </td>
-
                 <td>{{ question['vote_number'] }} </td>
-            {% endfor %}
             </tr>
+            {% endfor %}
         </div>
     </div>
 
