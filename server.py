@@ -48,7 +48,7 @@ def add_comment(id):
     data = request.form
     if request.method == 'POST':
         data_manager_comment.add_comment(data, id)
-        return redirect('/show_question/' + id)
+        return redirect('/show_question/' + id)     #trzea naprawic id
     return render_template('add_comment.html', id=id)
 
 

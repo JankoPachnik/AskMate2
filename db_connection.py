@@ -1,6 +1,5 @@
 import psycopg2
-
-import data_manager_sql
+import psycopg2.extras
 
 
 def sql_data(sql_query, operation_type, data=None):
@@ -25,9 +24,9 @@ def sql_data(sql_query, operation_type, data=None):
         cursor = connection.cursor()
 
         if operation_type == "read":
+            cursor = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
             cursor.execute(sql_query, data)
             data = cursor.fetchall()
-            data = data_manager_sql.data_transformation(data)
             return data
 
         elif operation_type == "write":

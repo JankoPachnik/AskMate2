@@ -5,6 +5,7 @@ import db_connection
 def get_questions():
     sql_query = """SELECT * FROM question ORDER BY id ASC;"""
     q_list = db_connection.sql_data(sql_query, "read")
+    print(q_list)
     return q_list
 
 
