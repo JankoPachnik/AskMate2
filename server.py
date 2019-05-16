@@ -111,15 +111,12 @@ def vote_ask_plus(answer_id, question_id):
 
 @app.route('/show_question/<id>/edit', methods=['POST', 'GET'])
 def route_question_edit(id):
-    edit = True
-    action = '/show_question/' + id + '/edit'
     questions = data_manager_questions.one_question(id)
+    data = request.form
     if request.method == 'POST':
-        title = request.form['title']
-        description = request.form['message']
-        data_manager_questions.update_question(id, title, description)
+        data_manager_questions.update_question(id, data)
         return redirect('/show_question/' + id)
-    return render_template('edit.html', edit=edit, questions=questions, id=id, action=action)
+    return render_template('edit.html', questions=questions)
 
 
 if __name__ == '__main__':

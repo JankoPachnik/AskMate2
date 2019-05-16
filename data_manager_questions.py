@@ -15,7 +15,9 @@ def one_question(id_of_question):
     return question
 
 
-def update_question(id, title, description):   #do zrobienia od nowa
+def update_question(id, data):
+    title = data['title']
+    description = data['message']
     sql_query = """UPDATE question
         SET title = %s, message = %s
         WHERE id = %s;"""
