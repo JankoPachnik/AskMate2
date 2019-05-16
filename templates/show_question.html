@@ -71,6 +71,8 @@
                                 {% endif %}
                             <td><a href="/answer/{{ answer['id'] }}/delete/{{ question['id'] }}">
                                 <button id="delete" type="submit" formmethod="post"><span>DELETE</span></button>
+                            <td><a href="/add_comment/{{ answer['id'] }}">
+                                <button id="add_comment" type="submit" formmethod="post"><span>COMMENT</span></button>
                          {% endfor %}
                             </a></td>
                         </tr>

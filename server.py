@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect
 import connection
 import data_manager_answers
 import data_manager_questions
+import data_manager_comment
 
 app = Flask(__name__)
 
@@ -43,6 +44,15 @@ def show_question(id):
     questions = data_manager_questions.one_question(id)
     answers = data_manager_answers.get_answers_to_question(id)
     return render_template("show_question.html", questions=questions, answers=answers, id=id)
+
+
+@app.route('/add_comment/<id>', methods=['GET', 'POST'])
+def add_comment(id):
+    data = request.form
+    if request.method == 'POST':
+        data_manager_comment.add_comment(data, id)
+        return redirect('/show_question/' + id)
+    return render_template('add_comment.html', id=id)
 
 
 @app.route('/question/<id>/new-answer', methods=['GET', 'POST'])
