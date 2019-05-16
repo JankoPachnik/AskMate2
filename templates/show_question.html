@@ -38,10 +38,11 @@
             </div>
         </div>
         </br>
+        {% if answers %}
         <div class="second_center">
             <div class="inside">
                 <table id="answers">
-                {% if answers %}
+
                     {% for answer in answers  %}
                         <tr>
                         <td>{{ loop.index }} </td>
@@ -71,9 +72,10 @@
                             </a></td>
                         </tr>
                     {% endfor %}
-                {% endif %}
+
                 </table>
             </div>
         </div>
+        {% endif %}
     </body>
 </html>
