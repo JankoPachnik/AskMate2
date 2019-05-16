@@ -37,7 +37,7 @@ def sorted_by_vote():
 
 
 @app.route('/show_question/<id>')       #transfers id from list of questions
-def show_question(id):
+def show_question(id):                  #referred id ?comes from answer id?
     data_manager_questions.question_view_count_increase(id)
     questions = data_manager_questions.one_question(id)
     answers = data_manager_answers.get_answers_to_question(id)
@@ -51,6 +51,12 @@ def add_comment(id):
         data_manager_comment.add_comment(data, id)
         return redirect('/show_question/' + id)
     return render_template('add_comment.html', id=id)
+
+
+@app.route('/show_comments/<id>', methods=['GET'])
+def show_comments(id):
+
+    return render_template('show_comments.html', )
 
 
 @app.route('/question/<id>/new-answer', methods=['GET', 'POST'])
