@@ -31,17 +31,18 @@ def newest_question():
 
 def question_view_count_increase(id):
     sql_read = """SELECT * FROM question WHERE id = %s;"""
-    question = db_connection.sql_data(sql_read, "read", id)
-    question["id"] = int(question["id"]) + 1
+    questions = db_connection.sql_data(sql_read, "read", id)
+    for question in questions:
+        number_to_increase = question["view_number"] + 1
+    data = (number_to_increase, id)
     sql_update = """UPDATE question
         SET view_number = %s
         WHERE id = %s;"""
-    db_connection.sql_data(sql_update, "update", id)
+    db_connection.sql_data(sql_update, "update", data)
 
 
 def new_question(request):
     data = datetime.datetime.now()
-    data = str(data)
     question = (data, "0", "0", request['title'], request["message"], None)
     sql_query = """INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
     VALUES (%s, %s, %s, %s, %s, %s);"""

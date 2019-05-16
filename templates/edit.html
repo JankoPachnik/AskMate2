@@ -20,17 +20,19 @@
         </div>
         <div class="big_center">
             <div class="inside">
-                <form action="/show_question/{{ question['id'] }}/edit" method="POST">
-                     <fieldset>
-                            <legend>Enter Your Question:</legend>
-                         Title:<br>
-                         <input name='title' type="text" value="{{ question['title'] if edit }}"><br>
-                                Question:<br>
-                         <textarea name="message">{{ question['title'] if edit }}</textarea><br>
-                            <br>
-                            <button type="submit" formmethod="post"><span>Submit</span></button>
-                     </fieldset>
-                </form>
+                {% for question in questions %}
+                    <form action="/show_question/{{ question['id'] }}/edit" method="POST">
+                         <fieldset>
+                                <legend>Enter Your Question:</legend>
+                             Title:<br>
+                             <input name='title' type="text" value="{{ question['title'] if edit }}"><br>
+                                    Question:<br>
+                             <textarea name="message">{{ question['title'] if edit }}</textarea><br>
+                                <br>
+                                <button type="submit" formmethod="post"><span>Submit</span></button>
+                         </fieldset>
+                    </form>
+                {% endfor %}
             </div>
         </div>
     </body>
