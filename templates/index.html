@@ -10,8 +10,8 @@
         <div class="inside">
             <ul>
                 <li><a href="/">Main Menu</a></li>
-                <li><a href="add">Add question</a></li>
-                <li><a href="list">Questions</a></li>
+                <li><a href="/add">Add question</a></li>
+                <li><a href="/list">Questions</a></li>
                 <li id="about"><a href="about">About</a></li>
             </ul>
         </div>
@@ -19,13 +19,25 @@
 
     <div class="left">
         <div class="inside">
-            Hottest Question
+            {% for question in best_question  %}
+            <tr>
+                <td>{{ question['title'] }} </td>
+                <td>{{ question['message'] }} </td>
+                <td>{{ question['vote_number'] }} </td>
+            </tr>
+            {% endfor %}
         </div>
     </div>
 
     <div class="right">
         <div class="inside">
-            </table>
+            {% for question in newest_question %}
+                <tr>
+                    <td>{{ question['title'] }} </td>
+                    <td>{{ question['message'] }} </td>
+                    <td>{{ question['view_number'] }} </td>
+                </tr>
+            {% endfor %}
         </div>
     </div>
 
