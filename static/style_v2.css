@@ -27,6 +27,16 @@ div.second_center{
     margin-top: 3%;
 }
 
+div.comment{
+    display: block;
+    padding: 1%;
+    float: left;
+    height: 5%;
+    width: 40%;
+    margin-left: 42%;
+    margin-top: 0%;
+}
+
 div.left{
     display: block;
     float: left;
