@@ -4,10 +4,10 @@ import psycopg2.extras
 
 def sql_data(sql_query, operation_type, data=None):
     try:
-        user_name = "aleksander"
-        password = "Minotaur1"
+        user_name = "janek"
+        password = ""
         host = "localhost"
-        database_name = "codecooler"
+        database_name = "AskMate"
 
         connect_str = "postgresql://{user_name}:{password}@{host}/{database_name}".format(
             user_name=user_name,
@@ -37,6 +37,7 @@ def sql_data(sql_query, operation_type, data=None):
 
         cursor.close()
 
+#test comment
     except psycopg2.DatabaseError as exception:
         print(exception)
 

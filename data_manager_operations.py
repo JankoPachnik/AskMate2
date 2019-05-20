@@ -1,7 +1,7 @@
 import db_connection
 
 
-def get_question_id(answer_id):
+def get_question_id(answer_id): #s
     sql_query = """SELECT * FROM answer WHERE id = %s"""
     answers = db_connection.sql_data(sql_query, "read", answer_id)
     for answer in answers:

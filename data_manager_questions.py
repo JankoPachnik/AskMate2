@@ -3,7 +3,7 @@ import db_connection
 
 
 def get_questions():
-    sql_query = """SELECT * FROM question ORDER BY id ASC;"""
+    sql_query = """SELECT * FROM question ORDER BY id ASC;"""   #selecting lisr of dicts from sql
     q_list = db_connection.sql_data(sql_query, "read")
     print(q_list)
     return q_list
