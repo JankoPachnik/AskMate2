@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect
 import data_manager_answers
 import data_manager_questions
 import data_manager_comment
+import data_manager_operations
 
 app = Flask(__name__)
 
@@ -41,7 +42,8 @@ def show_question(id):
     data_manager_questions.question_view_count_increase(id)
     question_one = data_manager_questions.one_question(id)
     answers = data_manager_answers.get_answers_to_question(id)
-    return render_template("show_question.html", questions=question_one, answers=answers, id=id)
+    comments = data_manager_comment.get_comment_to_answer(id)
+    return render_template("show_question.html", questions=question_one, answers=answers, comments=comments, id=id)
 
 
 @app.route('/add_comment/<id>', methods=['GET', 'POST'])
@@ -49,7 +51,8 @@ def add_comment(id):
     data = request.form
     if request.method == 'POST':
         data_manager_comment.add_comment(data, id)
-        return redirect('/show_question/' + id)     #trzea naprawic id
+        question_id = data_manager_operations.get_question_id(id)
+        return redirect('/show_question/' + question_id)     #trzea naprawic id
     return render_template('add_comment.html', id=id)
 
 

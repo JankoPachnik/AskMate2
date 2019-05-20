@@ -14,9 +14,9 @@ def add_comment(form_data, id):
     db_connection.sql_data(sql_query, "write", new_comment)
 
 
-def get_comment_to_answer(id_from_answer):
-    sql_query = """SELECT * FROM comment WHERE answer_id = %s;"""
-    comments = db_connection.sql_data(sql_query, "read", id_from_answer)
+def get_comment_to_answer(question_id):
+    sql_query = """SELECT * FROM comment WHERE question_id = %s;"""
+    comments = db_connection.sql_data(sql_query, "read", question_id)
     return comments
 
 

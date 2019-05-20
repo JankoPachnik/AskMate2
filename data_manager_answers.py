@@ -25,6 +25,8 @@ def get_answers_to_question(id_from_question):
 def delete_answer_element(element_id):  #usuwanie commentarzy do odpowiedzi
     sql_query_answer = """DELETE FROM answer WHERE id = %s;"""
     db_connection.sql_data(sql_query_answer, "write", element_id)
+    sql_query_comment = """DELETE FROM comment WHERE answer_id = %s;"""
+    db_connection.sql_data(sql_query_comment, "write", element_id)
 
 
 def vote_answers_plus(id):
