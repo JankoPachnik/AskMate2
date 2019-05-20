@@ -37,6 +37,7 @@ def sql_data(sql_query, operation_type, data=None):
 
         cursor.close()
 
+#test comment
     except psycopg2.DatabaseError as exception:
         print(exception)
 

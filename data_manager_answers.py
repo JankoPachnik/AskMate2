@@ -4,7 +4,7 @@ import db_connection
 
 
 def get_all_answers():
-    sql_query = """SELECT * FROM answer;"""
+    sql_query = """SELECT * FROM answer;""" #selecting dict from sql
     a_list = db_connection.sql_data(sql_query, "read")
     return a_list
 

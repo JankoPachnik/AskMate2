@@ -1,7 +1,7 @@
 import db_connection
 
 
-def sorting_questions(descending):
+def sorting_questions(descending):  #we have to change that
     if descending:
         sql_query = """SELECT * FROM question ORDER BY vote_number DESC ;"""
     else:
