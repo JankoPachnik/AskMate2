@@ -29,7 +29,7 @@ def sorted_by_date():
     questions = data_manager_questions.sort_time()
     return render_template('list.html', questions=questions)
 
-#tet
+#test
 
 @app.route('/list/sorted/by_vote')
 def sorted_by_vote():

@@ -21,7 +21,7 @@ def get_comment_to_answer(question_id):
 
 
 def delete_comment_element(element_id):
-    sql_query_comment = """DELETE FROM comment WHERE id = %s;"""     #dunno if that works
+    sql_query_comment = """DELETE FROM comment WHERE id = %s;"""     #dunno if that work
     db_connection.sql_data(sql_query_comment, "write", element_id)
 
 
