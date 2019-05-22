@@ -44,33 +44,32 @@
                     <table id="answers">
                         {% for answer in answers  %}
                             <tr>
-                            <td>{{ loop.index }} </td>
-                            <td width="60%">{{ answer['message'] }} </td>
-                            <td>{{ answer['submission_time'] }} </td>
-                            {% if answer['vote_number']|int < 0 %}
-                                <td class="red" >{{ answer['vote_number'] }} </td>
-                            {% elif answer['vote_number']|int == 0 %}
-                                <td class="yellow" >{{ answer['vote_number'] }} </td>
-                            {% else %}
-                                <td class="green" >{{ answer['vote_number'] }} </td>
+                                <td>{{ loop.index }} </td>
+                                <td width="60%">{{ answer['message'] }} </td>
+                                <td>{{ answer['submission_time'] }} </td>
+                                {% if answer['vote_number']|int < 0 %}
+                                    <td class="red" >{{ answer['vote_number'] }} </td>
+                                {% elif answer['vote_number']|int == 0 %}
+                                    <td class="yellow" >{{ answer['vote_number'] }} </td>
+                                {% else %}
+                                    <td class="green" >{{ answer['vote_number'] }} </td>
 
-                            {% endif %}
-                            {% for question in questions %}
-                                <td><a href="/answer/{{ answer['id'] }}/vote-up/{{ question['id'] }}"> <img border="0" src="/static/up.png" width="50" height="50"></a></td>
-                                <td><a href="/answer/{{ answer['id'] }}/vote-down/{{ question['id'] }}"> <img src="/static/down.png" width="50" height="50"></a></td>
-                             {% if answer['image'] %}
-                                        <td><img src="/static/{{ answer['image'] }}" alt="Example image" class="img-thumbnail" style="height:70px; width:auto;"></td>
-                                    {% else %}
-                                        <td><img src="http://placehold.it/80" alt="Example image" class="button" style="height:70px; width:auto;"></td>
-                                    {% endif %}
-                                <td><a href="/answer/{{ answer['id'] }}/delete/{{ question['id'] }}">
-                                    <button id="delete" type="submit" formmethod="post"><span>DELETE</span></button>
-                                <td><a href="/add_comment/{{ answer['id'] }}">
-                                <button id="add_comment" type="submit" formmethod="post"><span>COMMENT</span></button></a>
-                             {% endfor %}
+                                {% endif %}
+                                {% for question in questions %}
+                                    <td><a href="/answer/{{ answer['id'] }}/vote-up/{{ question['id'] }}"> <img border="0" src="/static/up.png" width="50" height="50"></a></td>
+                                    <td><a href="/answer/{{ answer['id'] }}/vote-down/{{ question['id'] }}"> <img src="/static/down.png" width="50" height="50"></a></td>
+                                {% if answer['image'] %}
+                                            <td><img src="/static/{{ answer['image'] }}" alt="Example image" class="img-thumbnail" style="height:70px; width:auto;"></td>
+                                        {% else %}
+                                            <td><img src="http://placehold.it/80" alt="Example image" class="button" style="height:70px; width:auto;"></td>
+                                        {% endif %}
+                                    <td><a href="/answer/{{ answer['id'] }}/delete/{{ question['id'] }}">
+                                        <button id="delete" type="submit" formmethod="post"><span>DELETE</span></button>
+                                    <td><a href="/add_comment/{{ answer['id'] }}">
+                                    <button id="add_comment" type="submit" formmethod="post"><span>COMMENT</span></button></a>
+                                {% endfor %}
                                 </td>
                             </tr>
-
                         {% endfor %}
                     </table>
                 </div>
