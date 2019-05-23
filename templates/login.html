@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <title>Edit Question</title>
+    <title>Log In</title>
 </head>
 <body style="height: 100%">
 <nav class="navbar bg-light navbar-light fixed-top">
@@ -15,7 +15,7 @@
         {% if login %}
             <li class="nav-item"><a class="nav-link" href="/account">My Account</a></li>
         {% else %}
-            <li class="nav-item"><a class="nav-link" href="/login"><img class="" src="/static/images/user.svg" style="height: 15%; width: 15%">Log in</a></li>
+            <li class="nav-item"><a class="nav-link active" href="/login"><img class="" src="static/images/user.svg" style="height: 15%; width: 15%">Log in</a></li>
         {% endif %}
     </ul>
     <ul class="nav float-right">
@@ -28,17 +28,20 @@
     </ul>
 </nav>
 <div class="container col-12 d-flex justify-content-center h-100 d-inline-block" style="background-color: #ccefff;">
-    <div class="container col-8 d-flex justify-content-center h-100 d-inline-block border border-secondary border-bottom-0" style="background-color: white;">
-        <form action="/show_question/{{ questions[0]['id'] }}/edit" method="POST" class="col-8" style="margin-top: 8%; margin-bottom: 8%">
-             <fieldset class="col-12">
-                 <legend>Edit Your Question:</legend>
-                 <div class="input-group" style="margin-bottom: 2%">
-                    <input name='title' type="text" class="form-control" value="{{ questions[0]['title'] }}">
-                 </div>
-                 <textarea name="message" class="form-control" rows="6">{{ questions[0]['message'] }}</textarea><br>
-                 <button class="btn btn-outline-info btn-block" type="submit" formmethod="post">Post</button>
-             </fieldset>
-        </form>
+    <div class="container col-8 d-flex justify-content-center h-100 d-inline-block border border-secondary border-bottom-0 bg-light">
+        <div class="container col-5" style="margin-top: 20%">
+            <img class="" src="static/images/user.svg" style="height: 50%; width: 50%; margin-left: 22%; margin-bottom: -15%">
+            <form class="mr-4 col-12" action="/login" method="POST">
+                <div class="input-group">
+                    <input id="username" type="text" class="form-control" name="username" placeholder="Username">
+                </div>
+                <div class="input-group">
+                    <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                </div>
+                <button type="submit"class="btn btn-outline-info">Log In</button>
+                <a href="/register">Dont have an account?</a>
+            </form>
+        </div>
     </div>
 </div>
 <footer class="page-footer font-small blue bg-light">

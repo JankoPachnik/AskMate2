@@ -1,42 +1,61 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%">
 <head>
     <meta charset="UTF-8">
-    <title>Add question</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_v2.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Add Question</title>
 </head>
-    <body>
-        <div class="top">
-            <div class="inside">
-                <ul>
-                    <li><a href="/">Main Menu</a></li>
-                    <li><a href="/add">Add question</a></li>
-                    <li><a href="/list">Questions</a></li>
-                    <li id="about"><a href="about">About</a></li>
-                </ul>
-            </div>
+<body style="height: 100%">
+<nav class="navbar bg-light navbar-light fixed-top" style="background-color: lightgrey">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a class="nav-link" href="/">Main Menu</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/add_question">Add Question</a></li>
+        <li class="nav-item"><a class="nav-link" href="/list">Browse Questions</a></li>
+        {% if login %}
+            <li class="nav-item"><a class="nav-link" href="/account">My Account</a></li>
+        {% else %}
+            <li class="nav-item"><a class="nav-link" href="/login"><img class="" src="/static/images/user.svg" style="height: 15%; width: 15%">Log in</a></li>
+        {% endif %}
+    </ul>
+    <ul class="nav float-right">
+        <li class="nav-item">
+            <form class="form-inline" action="/">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </li>
+    </ul>
+</nav>
+<div class="container col-12 d-flex justify-content-center h-100 d-inline-block" style="background-color: #ccefff;">
+    <div class="container col-8 d-flex justify-content-center h-100 d-inline-block border border-secondary border-bottom-0" style="background-color: white;">
+        <form action="/add_question" method="POST" class="col-8" style="margin-top: 8%; margin-bottom: 8%">
+             <fieldset class="col-12">
+                 <legend>Enter question you want to Submit:</legend>
+                 <label for="title">Title of your question: </label>
+                 <textarea name="title" class="form-control" id="title" rows="1" placeholder="your title:"> </textarea>
+                 <label for="message">Your question: </label>
+                 <textarea name="message" class="form-control" id="message" rows="6" placeholder="your question:"> </textarea>
+                 <button class="btn btn-outline-info btn-block" type="submit" formmethod="post">Post</button>
+            </fieldset>
+        </form>
+        <div class="container" style="margin-top: 8%;">
+            <table class = "table table-striped table-hover">
+                <thead>
+                    <th style="border-top-color: white;">Posting Rules: </th>
+                </thead>
+                <tbody> <!-- Need to add python functions -->
+                    <tr><td>Rule 1</td></tr>
+                    <tr><td>Rule 2</td></tr>
+                    <tr><td>Rule 3</td></tr>
+                </tbody>
+            </table>
         </div>
-        <div class="big_center">
-            <div class="inside">
-                <form action="/add" method="POST">
-                     <fieldset>
-                            <legend>Enter Your Question:</legend>
-                         Title:<br>
-                         <input name='title' type="text" value="Your title"><br>
-                                Question:<br>
-                         <textarea name="message">Enter your Question here</textarea><br>
-                            <br>
-                             <form formmethod=POST enctype=multipart/form-data action='/add'>
-                             <td><label class="btn btn-primary btn-sm">
-                                Browse  <input type="file" style="display: none;" name="photo">
-                            </label>
-                             </td>
-                             </form>
-                            <button type="submit" formmethod="post"><span>Submit</span></button>
-                     </fieldset>
-                </form>
-            </div>
-        </div>
-    </body>
+    </div>
+</div>
+<footer class="page-footer font-small blue bg-light">
+  <div class="footer-copyright text-center py-3">© 2019 copyright: Über Team</div>
+</footer>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
 </html>
