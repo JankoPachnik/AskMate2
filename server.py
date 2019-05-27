@@ -1,11 +1,14 @@
 from flask import Flask, render_template, request, redirect
-
+from flask_uploads import UploadSet, configure_uploads, IMAGES
 from data_manager import data_manager_questions, data_manager_comment, data_manager_answers, data_manager_operations
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='/static')
 
 
-app.config['UPLOADED_PHOTOS_DEST'] = 'ask-mate-python/static/images'
+app.config['UPLOADED_PHOTOS_DEST'] = '/static/images'
+photos = UploadSet('photos', IMAGES)
+app.config['UPLOADED_PHOTOS_DEST'] = 'static/images'
+configure_uploads(app, photos)
 
 
 @app.route('/')
@@ -71,6 +74,8 @@ def add():
     data = request.form
     if request.method == 'POST':
         data_manager_questions.new_question(data)
+    if 'photo' in request.files:
+        photos.save(request.files['photo'])
     else:
         return render_template('add.html', tags=tags)
     return redirect('/list')
@@ -147,6 +152,8 @@ def register():
 @app.route('/account')
 def account():
     return render_template("account.html")
+
+
 
 
 if __name__ == '__main__':

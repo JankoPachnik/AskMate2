@@ -1,5 +1,20 @@
 import datetime
 import db_connection
+from flask import Flask
+from flask_uploads import UploadSet, configure_uploads, IMAGES
+
+
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
+photos = UploadSet('photos', IMAGES)
+base_url = 'http://127.0.0.1:5004'
+
+app.config['UPLOADED_PHOTOS_DEST'] = 'static/images'
+app.config['SECRET_KEY'] = '0b95219177b86d8db3fbde38daf944f0'
+# prevent catching files in browser:
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+configure_uploads(app, photos)
+
+
 
 
 def get_questions():
@@ -52,7 +67,7 @@ def question_view_count_increase(id):
 
 def new_question(request):
     data = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    question = (data, "0", "0", request['title'], request["message"], None)
+    question = (data, "0", "0", request['title'], request["message"], request["photo"])
     sql_query = """INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
     VALUES (%s, %s, %s, %s, %s, %s);"""
     db_connection.sql_data(sql_query, "write", question)

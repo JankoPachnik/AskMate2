@@ -43,7 +43,12 @@
                     <div class="col-sm-2 float-left"><p>{{ question['submission_time'] }}</p></div>
                     <div class="col-sm-1 float-left"><p>{{ question['view_number'] }}</p></div>
                     <div class="col-sm-1 float-left"><p>{{ question['vote_number'] }}</p></div>
-                    <div class="col-sm-1 float-left"><p>None</p></div>
+                    {% if question['image'] %}
+                            <td class="col-sm-1 float-left"><img src="/static/{{ question['image'] }}" alt="Example image" class="img-thumbnail user-image__image"></td>
+                        {% else %}
+                            <td class="col-sm-1 float-left"><img src="http://placehold.it/80" alt="Example image" class="img-thumbnail user-image__image"></td>
+                        {% endif %}
+                        <td><a href="/question/{{ question['id'] }}/delete"><i class="fas fa-trash text-danger"></i></a></td>
                 </div>
             {% endfor %}
         </div>
