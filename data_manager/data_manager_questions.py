@@ -25,26 +25,27 @@ def update_question(id, data):
     db_connection.sql_data(sql_query, "update", question)
 
 
-def newest_question():
-    sql_query = """SELECT * FROM question ORDER BY submission_time DESC LIMIT 1;"""
-    question = db_connection.sql_data(sql_query, "read")
-    return question
+def newest_questions():
+    sql_query = """SELECT * FROM question ORDER BY submission_time DESC LIMIT 5;"""
+    questions = db_connection.sql_data(sql_query, "read")
+    return questions
+
+
+def hottest_questions():
+    sql_query = """SELECT * FROM question ORDER BY view_number DESC LIMIT 5"""
+    questions = db_connection.sql_data(sql_query, "read")
+    return questions
 
 
 def question_view_count_increase(id):
-    sql_read = """SELECT * FROM question WHERE id = %s;"""
-    questions = db_connection.sql_data(sql_read, "read", id)
-    for question in questions:
-        number_to_increase = question["view_number"] + 1
-    data = (number_to_increase, id)
     sql_update = """UPDATE question
-        SET view_number = %s
+        SET view_number = view_number + 1
         WHERE id = %s;"""
-    db_connection.sql_data(sql_update, "update", data)
+    db_connection.sql_data(sql_update, "update", id)
 
 
 def new_question(request):
-    data = datetime.datetime.now()
+    data = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     question = (data, "0", "0", request['title'], request["message"], None)
     sql_query = """INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
     VALUES (%s, %s, %s, %s, %s, %s);"""
@@ -61,25 +62,17 @@ def delete_question_element(element_id):
 
 
 def vote_questions_plus(id):
-    sql_read = """SELECT * FROM question WHERE id = %s;"""
-    questions = db_connection.sql_data(sql_read, "read", id)
-    for question in questions:
-        data = (question["vote_number"] + 1, id)
     sql_update = """UPDATE question
-            SET vote_number = %s
+            SET vote_number = vote_number + 1
             WHERE id = %s;"""
-    db_connection.sql_data(sql_update, "update", data)
+    db_connection.sql_data(sql_update, "update", id)
 
 
 def vote_questions_minus(id):
-    sql_read = """SELECT * FROM question WHERE id = %s;"""
-    questions = db_connection.sql_data(sql_read, "read", id)
-    for question in questions:
-        data = (question["vote_number"] - 1, id)
     sql_update = """UPDATE question
-                SET vote_number = %s
+                SET vote_number = vote_number - 1
                 WHERE id = %s;"""
-    db_connection.sql_data(sql_update, "update", data)
+    db_connection.sql_data(sql_update, "update", id)
 
 
 def best_questions():

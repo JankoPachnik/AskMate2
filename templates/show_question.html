@@ -1,81 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%">
 <head>
     <meta charset="UTF-8">
-    <title>Add question</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_v2.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Title</title>
 </head>
-    <body>
-        <div class="top">
-            <div class="inside">
-                <ul>
-                    <li><a href="/">Main Menu</a></li>
-                    <li><a href="/add">Add question</a></li>
-                    <li><a href="/list">Questions</a></li>
-                    <li id="about"><a href="/about">About</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="big_center">
-            <div class="inside">
-                <table>
-                {% for question in questions %}
-                    <td>{{ question['title'] }} </td>
-                    <td>{{ question['message'] }} </td>
-                    <td>{{ question['submission_time'] }} </td>
-                    <td>{{ question['view_number'] }} </td>
-                    <td>{{ question['vote_number'] }} </td>
-                    {% if question['image'] %}
-                    <td><img src="/static/{{ question['image'] }}" alt="Example image" class="img-thumbnail" style="height:70px; width:auto;"></td>
-                    {% else %}
-                        <td><img src="http://placehold.it/80" alt="Example image" class="img-thumbnail" style="height:70px; width:auto;"></td>
-                    {% endif %}
-                    <td><a href="/question/{{ question['id'] }}/delete"><i class="fas fa-trash text-danger"></i></a></td>
-                    <a href="/question/{{ question['id'] }}/new-answer"><button><span>Answer</span></button></a>
-                    <a href="/show_question/{{ question['id'] }}/edit"><button><span>(R)Eddit</span></button></a>
-                {% endfor %}
-                </table>
-            </div>
-        </div>
-        </br>
-        {% if answers %}
-            <div class="second_center">
-                <div class="inside">
-                    <table id="answers">
-                        {% for answer in answers  %}
-                            <tr>
-                            <td>{{ loop.index }} </td>
-                            <td width="60%">{{ answer['message'] }} </td>
-                            <td>{{ answer['submission_time'] }} </td>
-                            {% if answer['vote_number']|int < 0 %}
-                                <td class="red" >{{ answer['vote_number'] }} </td>
-                            {% elif answer['vote_number']|int == 0 %}
-                                <td class="yellow" >{{ answer['vote_number'] }} </td>
-                            {% else %}
-                                <td class="green" >{{ answer['vote_number'] }} </td>
-
-                            {% endif %}
-                            {% for question in questions %}
-                                <td><a href="/answer/{{ answer['id'] }}/vote-up/{{ question['id'] }}"> <img border="0" src="/static/up.png" width="50" height="50"></a></td>
-                                <td><a href="/answer/{{ answer['id'] }}/vote-down/{{ question['id'] }}"> <img src="/static/down.png" width="50" height="50"></a></td>
-                             {% if answer['image'] %}
-                                        <td><img src="/static/{{ answer['image'] }}" alt="Example image" class="img-thumbnail" style="height:70px; width:auto;"></td>
-                                    {% else %}
-                                        <td><img src="http://placehold.it/80" alt="Example image" class="button" style="height:70px; width:auto;"></td>
-                                    {% endif %}
-                                <td><a href="/answer/{{ answer['id'] }}/delete/{{ question['id'] }}">
-                                    <button id="delete" type="submit" formmethod="post"><span>DELETE</span></button>
-                                <td><a href="/add_comment/{{ answer['id'] }}">
-                                <button id="add_comment" type="submit" formmethod="post"><span>COMMENT</span></button></a>
-                             {% endfor %}
-                                </td>
-                            </tr>
-
-                        {% endfor %}
-                    </table>
-                </div>
-            </div>
-
+<body style="height: 100%">
+<nav class="navbar bg-light navbar-light fixed-top" style="background-color: lightgrey">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a class="nav-link" href="/">Main Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="/add_question">Add Question</a></li>
+        <li class="nav-item"><a class="nav-link" href="/list">Browse Questions</a></li>
+        {% if login %}
+            <li class="nav-item"><a class="nav-link" href="/account">My Account</a></li>
+        {% else %}
+            <li class="nav-item"><a class="nav-link" href="/login"><img class="" src="/static/images/user.svg" style="height: 15%; width: 15%">Log in</a></li>
         {% endif %}
-    </body>
+    </ul>
+    <ul class="nav float-right">
+        <li class="nav-item">
+            <form class="form-inline" action="/">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </li>
+    </ul>
+</nav>
+<div class="container col-12 d-flex justify-content-center h-100 d-inline-block" style="background-color: #ccefff;">
+    <div class="container col-8 h-100 d-inline-block border border-secondary border-bottom-0" style="background-color: white;">
+        <div class="jumbotron col-12 shadow rounded-sm" style="margin-top: 6%">
+            {% for object in question %}
+                <h1>{{ object['title'] }}</h1>
+                <p class="lead">{{ object['message'] }}</p>
+                <hr class="my-4">
+                <p>{{ object['submission_time'].isoformat(' ')}}{{ object['view_number']}}{{ object['vote_number']}}</>
+                <div class="container col-5 float-right">
+                    <a href="/question/{{ object['id'] }}/delete" role="button" class="btn btn-outline-danger float-right">Delete</a>
+                    <a href="/show_question/{{ object['id'] }}/edit" role="button" class="btn btn-outline-warning float-right mr-3">Eddit</a>
+                    <a href="/question/{{ object['id'] }}/new-answer" role="button" class="btn btn-success float-right mr-3">Answer</a>
+                </div>
+            {% endfor %}
+        </div>
+        {% if answers %}
+            {% for answer in answers  %}
+                <div class="container col-8 shadow p-4 mb-4 bg-light rounded-sm float-left">
+                    <p class="lead col-8">{{ answer['message'] }}</p>
+                    <hr>
+                    <p class="col-6">Posted by: {{ answer['submission_time'].isoformat(' ')}} {{answer['vote_number'] }}</p>
+                    <a href="/answer/{{ answer['id'] }}/delete/{{ question[0]['id'] }}" role="button" class="btn btn-outline-danger float-right">Delete</a>
+                    <a href="/add_comment/{{ answer['id'] }}" role="button" class="btn btn-outline-warning float-right mr-3">Comment</a>
+                    <a href="/answer/{{ answer['id'] }}/vote-up/{{ question[0]['id'] }}" role="button" class="btn btn-outline-success float-left mr-3">Vote up</a>
+                    <a href="/answer/{{ answer['id'] }}/vote-down/{{ question[0]['id'] }}" role="button" class="btn btn-outline-danger float-left mr-3">Vote down</a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+<footer class="page-footer font-small blue bg-light">
+  <div class="footer-copyright text-center py-3">© 2019 copyright: Über Team</div>
+</footer>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
 </html>

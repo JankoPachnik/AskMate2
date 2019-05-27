@@ -10,14 +10,14 @@ def get_all_answers():
 
 
 def add_answer(form_data, id):
-    new_answer = (datetime.now(), 0, id, form_data['answer'], None)
+    new_answer = (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 0, id, form_data['message'], None)
     sql_query = """INSERT INTO answer (submission_time, vote_number, question_id, message, image) 
     VALUES (%s, %s, %s, %s, %s)"""
     db_connection.sql_data(sql_query, "write", new_answer)
 
 
 def get_answers_to_question(id_from_question):
-    sql_query = """SELECT * FROM answer WHERE question_id = %s;"""
+    sql_query = """SELECT * FROM answer WHERE question_id = %s ORDER BY id ASC;"""
     answers = db_connection.sql_data(sql_query, "read", id_from_question)
     return answers
 
@@ -30,22 +30,14 @@ def delete_answer_element(element_id):  #usuwanie commentarzy do odpowiedzi
 
 
 def vote_answers_plus(id):
-    sql_read = """SELECT * FROM answer WHERE id = %s;"""
-    answers = db_connection.sql_data(sql_read, "read", id)
-    for answer in answers:
-        data = (answer["vote_number"] + 1, id)
     sql_update = """UPDATE answer
-                SET vote_number = %s
+                SET vote_number = vote_number + 1
                 WHERE id = %s;"""
-    db_connection.sql_data(sql_update, "update", data)
+    db_connection.sql_data(sql_update, "update", id)
 
 
 def vote_answers_minus(id):
-    sql_read = """SELECT * FROM answer WHERE id = %s;"""
-    answers = db_connection.sql_data(sql_read, "read", id)
-    for answer in answers:
-        data = (answer["vote_number"] - 1, id)
     sql_update = """UPDATE answer
-                  SET vote_number = %s
-                  WHERE id = %s;"""
-    db_connection.sql_data(sql_update, "update", data)
+                SET vote_number = vote_number - 1
+                WHERE id = %s;"""
+    db_connection.sql_data(sql_update, "update", id)
