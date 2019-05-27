@@ -7,49 +7,6 @@
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Add Question</title>
 </head>
-    <body>
-        <div class="top">
-            <div class="inside">
-                <ul>
-                    <li><a href="/">Main Menu</a></li>
-                    <li><a href="/add">Add question</a></li>
-                    <li><a href="/list">Questions</a></li>
-                    <li id="about"><a href="about">About</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="big_center">
-            <div class="inside">
-                <form action="/add" method="POST">
-                     <fieldset>
-                            <legend>Enter Your Question:</legend>
-                         Title:
-                         <br>
-                         <input name='title' type="text" value="Your title">
-                         <br>
-                         Question:
-                         <br>
-                         <textarea name="message">Enter your Question here</textarea><br>
-                         <br>
-                         TAGS:
-                         <br>
-                         {% for tag in tags %}
-                            <tr>
-                                <td>{{ tag['name'] }} </td>
-                         {% endfor %}
-                         <br>
-                         <form formmethod=POST enctype=multipart/form-data action='/add'>
-                             <td><label class="btn btn-primary btn-sm">
-                                Browse  <input type="file" style="display: none;" name="photo">
-                            </label>
-                             </td>
-                             </form>
-                            <button type="submit" formmethod="post"><span>Submit</span></button>
-                     </fieldset>
-                </form>
-            </div>
-        </div>
-    </body>
 <body style="height: 100%">
 <nav class="navbar bg-light navbar-light fixed-top" style="background-color: lightgrey">
     <ul class="nav nav-pills">
