@@ -88,6 +88,8 @@ def about():
 
 @app.route('/add_question', methods=['GET', 'POST'])
 def add():
+    tags = data_manager_questions.get_tags()
+
     data = request.form
     if request.method == 'POST':
         data_manager_questions.new_question(data)
@@ -95,7 +97,7 @@ def add():
         login = None
         if 'username' in session:
             login = session['username']
-        return render_template('add.html', login=login)
+        return render_template('add.html', login=login, tags=tags)
     return redirect('/list')
 
 
@@ -146,6 +148,18 @@ def route_question_edit(id):
     if 'username' in session:
         login = session['username']
     return render_template('edit.html', questions=questions, login=login)
+
+
+@app.route('/add-tag/<tag_id>/new/<question_id>', methods=['POST', 'GET'])
+def add_new_tag(tag_id, question_id, tag_name):
+    data_manager_questions.add_new_tag(tag_id, question_id, tag_name)
+    return render_template('/show_question/' + question_id)
+
+
+@app.route('/add-tag/<tag_id>/new/<question_id>', methods=['POST', 'GET'])
+def add_tag(tag_id, question_id):
+    data_manager_questions.add_tag(tag_id, question_id)
+    return render_template('/show_question/' + question_id)
 
 
 @app.route('/login', methods=['POST', 'GET'])
