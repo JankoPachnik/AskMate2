@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" style="height: 100%">
 <head>
@@ -35,7 +36,19 @@
                  <label for="title">Title of your question: </label>
                  <textarea name="title" class="form-control" id="title" rows="1" placeholder="your title:"> </textarea>
                  <label for="message">Your question: </label>
-                 <textarea name="message" class="form-control" id="message" rows="6" placeholder="your question:"> </textarea>
+                 <textarea name="message" class="form-control" id="message" rows="6" placeholder="your question:">
+                 </textarea>
+
+                 <br>
+                         TAGS:
+                         <br>
+                         {% for tag in tags %}
+                            <tr>
+                                <td>{{ tag['name'] }} </td>
+                         {% endfor %}
+                 <br>
+
+
                  <button class="btn btn-outline-info btn-block" type="submit" formmethod="post">Post</button>
             </fieldset>
         </form>
