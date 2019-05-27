@@ -93,3 +93,8 @@ def sort_time():
     return questions
 
 
+def sort_view():
+    sql_read = """SELECT * FROM question ORDER BY view_number DESC"""
+    questions = db_connection.sql_data(sql_read, "read")
+    return questions
+

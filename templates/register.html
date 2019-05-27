@@ -12,11 +12,6 @@
         <li class="nav-item"><a class="nav-link" href="/">Main Menu</a></li>
         <li class="nav-item"><a class="nav-link" href="/add_question">Add Question</a></li>
         <li class="nav-item"><a class="nav-link" href="/list">Browse Questions</a></li>
-        {% if login %}
-            <li class="nav-item"><a class="nav-link" href="/account">My Account</a></li>
-        {% else %}
-            <li class="nav-item"><a class="nav-link" href="/login"><img class="" src="static/images/user.svg" style="height: 15%; width: 15%">Log in</a></li>
-        {% endif %}
     </ul>
     <ul class="nav float-right">
         <li class="nav-item">
@@ -44,6 +39,11 @@
                 <button type="submit"class="btn btn-outline-success">Register</button>
                 <a href="/login">Already have an account?</a>
             </form>
+            {% if message %}
+                <div class="alert alert-danger">
+                    <strong>Error:</strong> {{ message }}
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>

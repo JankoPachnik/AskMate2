@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>My Account</title>
 </head>
-<body>
+<body style="height: 100%">
+<nav class="navbar bg-light navbar-light fixed-top">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a class="nav-link" href="/">Main Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="/add_question">Add Question</a></li>
+        <li class="nav-item"><a class="nav-link" href="/list">Browse Questions</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/login">{{ message }}</a></li>
+    </ul>
+    <ul class="nav float-right">
+        <li class="nav-item">
+            <form class="form-inline" action="/action_page.php">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </li>
+    </ul>
+</nav>
+<div class="container col-12 d-flex justify-content-center h-100 d-inline-block" style="background-color: #ccefff;">
+    <div class="container col-8 d-flex justify-content-center h-100 d-inline-block border border-secondary border-bottom-0 bg-light">
+        <div class="container col-12 d-flex" style="margin-top: 15%">
+            <div class="container col-4">
+                <div class="jumbotron col-12">
+                    <p>{{ message }}</p>
+                    <p>example@gmail.com</p>
+                    <p>Reputation: </p>
+                    <p><a href="/logout" role="button" class="btn btn-outline-info float-left">Log Out</a></p>
+                </div>
+            </div>
+            <div class="container col-8">
+                <div class="jumbotron col-12">
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="page-footer font-small blue bg-light">
+  <div class="footer-copyright text-center py-3">© 2019 copyright: Über Team</div>
+</footer>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
