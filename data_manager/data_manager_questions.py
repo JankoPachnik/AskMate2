@@ -9,6 +9,12 @@ def get_questions():
     return q_list
 
 
+def get_tags():
+    sql_query = """SELECT * FROM tag ORDER BY id ASC;"""
+    tags_list = db_connection.sql_data(sql_query, "read")
+    return tags_list
+
+
 def one_question(id_of_question):
     sql_query = """SELECT * FROM question WHERE id=%s;"""
     question = db_connection.sql_data(sql_query, "read", id_of_question)
@@ -93,3 +99,17 @@ def sort_time():
     return questions
 
 
+def add_new_tag(question_id, tag_id, tag_name):
+    new_tag = tag_name
+    sql_query = """INSERT INTO tag (name) VALUES (%s);"""
+    db_connection.sql_data(sql_query, "write", new_tag)
+
+    tag = (question_id, tag_id)
+    sql_query = """INSERT INTO question_tag (question_id, tag_id) VALUES (%s, %s);"""
+    db_connection.sql_data(sql_query, "write", tag)
+
+
+def add_tag(question_id, tag_id):
+    tag = (question_id, tag_id)
+    sql_query = """INSERT INTO question_tag (question_id, tag_id) VALUES (%s, %s);"""
+    db_connection.sql_data(sql_query, "write", tag)
