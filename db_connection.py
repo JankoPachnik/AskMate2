@@ -4,7 +4,7 @@ import psycopg2.extras
 
 def sql_data(sql_query, operation_type, data=None):
     try:
-        user_name = "janek"
+        user_name = "flup3er"
         password = ""
         host = "localhost"
         database_name = "AskMate"
