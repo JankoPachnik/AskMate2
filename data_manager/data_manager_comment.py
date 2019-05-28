@@ -1,16 +1,17 @@
 from datetime import datetime
-
+from data_manager import data_manager_user_operations
 import db_connection
 
 
-def add_comment(form_data, id):
+def add_comment(form_data, id, username=None):
     sql_read = """SELECT * FROM answer WHERE id = %s"""
     answer_row = db_connection.sql_data(sql_read, "read", id)
     for answer in answer_row:
         question_id = answer["question_id"]
-    new_comment = (form_data['comment'], datetime.now(), 0, id, question_id)
-    sql_query = """INSERT INTO comment (message, submission_time, edited_count, answer_id, question_id) 
-    VALUES (%s, %s, %s, %s, %s)"""
+    user_id = data_manager_user_operations.check_user_id(username)
+    new_comment = (form_data['comment'], datetime.now(), 0, id, question_id, user_id[0]['user_id'])
+    sql_query = """INSERT INTO comment (message, submission_time, edited_count, answer_id, question_id, user_id) 
+    VALUES (%s, %s, %s, %s, %s, %s)"""
     db_connection.sql_data(sql_query, "write", new_comment)
 
 

@@ -73,7 +73,7 @@ def show_question(id):
 def add_comment(id):
     data = request.form
     if request.method == 'POST':
-        data_manager_comment.add_comment(data, id)
+        data_manager_comment.add_comment(data, id, session['username'])
         question_id = data_manager_operations.get_question_id(id)
         return redirect('/show_question/' + question_id)     #trzea naprawic id
     return render_template('add_comment.html', id=id)
@@ -197,8 +197,8 @@ def login():
 def logout():
     # remove the username from the session if it's there
     session.pop('username')
-    session.pop('email')
-    session.pop('reputation')
+    # session.pop('email')
+    # session.pop('reputation')
     return redirect('/login')
 
 
@@ -211,6 +211,7 @@ def register():
         else:
             data_manager_user_operations.register(data)
             session['username'] = request.form['username']
+            session['email'] = request.form['email']
             return redirect('/my_page')
     return render_template("register.html")
 

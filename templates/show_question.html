@@ -49,6 +49,13 @@
                     <p class="lead col-8">{{ answer['message'] }}</p>
                     <hr>
                     <p class="col-6">Posted by: {{ answer['submission_time'].isoformat(' ')}} {{answer['vote_number'] }}</p>
+                    {% if comments %}
+                        {% for comment in comments  %}
+                            {% if answer['id'] == comment['answer_id']%}
+                                <p class="lead col-8" style="font-size:">{{ comment['message'] }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                     <a href="/answer/{{ answer['id'] }}/delete/{{ question[0]['id'] }}" role="button" class="btn btn-outline-danger float-right">Delete</a>
                     <a href="/add_comment/{{ answer['id'] }}" role="button" class="btn btn-outline-warning float-right mr-3">Comment</a>
                     <a href="/answer/{{ answer['id'] }}/vote-up/{{ question[0]['id'] }}" role="button" class="btn btn-outline-success float-left mr-3">Vote up</a>
