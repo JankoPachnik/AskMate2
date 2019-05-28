@@ -235,6 +235,14 @@ def my_page_answers():
     return redirect("login.html")
 
 
+@app.route('/ranking')
+def ranking():
+    users_info = data_manager_user_operations.get_user_info()
+    login = None
+    if 'username' in session:
+        login = session['username']
+    return render_template("ranking.html", users_info=users_info, login=login)
+
 #@app.route('/my_page/comment')
 #def my_page_answers():
     #if 'username' in session:
