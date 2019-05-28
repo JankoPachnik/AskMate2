@@ -27,8 +27,8 @@
         </li>
     </ul>
 </nav>
-<div class="container col-12 d-flex justify-content-center h-100 d-inline-block" style="background-color: #ccefff;">
-    <div class="container col-8 h-100 d-inline-block border border-secondary border-bottom-0" style="background-color: white;">
+<div class="container col-12 d-flex justify-content-center d-inline-block" style="background-color: #ccefff; min-height:100%">
+    <div class="container col-8 d-inline-block border border-secondary border-bottom-0" style="background-color: white; min-height:100%">
         <div class="jumbotron col-12 shadow rounded-sm" style="margin-top: 6%">
             {% for object in question %}
                 <h1>{{ object['title'] }}</h1>
