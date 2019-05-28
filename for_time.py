@@ -1,6 +1,6 @@
 from datetime import datetime
 
-import data_manager_questions
+from data_manager import data_manager_questions
 
 data = datetime.now()
 data = str(data)

@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 
 # C extensions
+ConnectData.py
 *.so
 
 # Distribution / packaging
@@ -104,4 +105,3 @@ ENV/
 # pycharm files
 .idea/
 
-db_connection.py

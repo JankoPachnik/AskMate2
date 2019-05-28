@@ -1,70 +1,59 @@
-
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" style="height: 100%">
 <head>
     <meta charset="UTF-8">
-    <title>List of questions</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style_v2.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Browse Questions</title>
 </head>
-    <body>
-        <div class="top">
-            <div class="inside">
-                <ul>
-                    <li><a href="/">Main Menu</a></li>
-                    <li><a href="/add">Add question</a></li>
-                    <li><a href="/list">Questions</a></li>
-                    <li id="about"><a href="about">About</a></li>
-                    <li class="search"><textarea class="searcharea"></textarea></li>
-                    <li class="button_search"><button><span>Search</span></button></li>
-                </ul>
-            </div>
+<body style="height: 100%">
+<nav class="navbar bg-light navbar-light fixed-top" style="background-color: lightgrey">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a class="nav-link" href="/">Main Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="/add_question">Add Question</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/list">Browse Questions</a></li>
+        {% if login %}
+            <li class="nav-item"><a class="nav-link" href="/my_page">{{ login }}</a></li>
+        {% else %}
+            <li class="nav-item"><a class="nav-link" href="/login"><img class="" src="/static/images/user.svg" style="height: 20%; width: 20%">Log in</a></li>
+        {% endif %}
+    </ul>
+    <ul class="nav float-right">
+        <li class="nav-item">
+            <form class="form-inline" action="/">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </li>
+    </ul>
+</nav>
+<div class="container col-12 d-flex justify-content-center h-100 d-inline-block" style="background-color: #ccefff;">
+    <div class="container col-8 h-100 d-inline-block border border-secondary border-bottom-0" style="background-color: white;">
+        <div class="container col-12" style="margin-top: 8%">
+            <a href="/list/sorted/by_date" role="button" class="btn btn-secondary col-4 float-left">Sort by Submission Time</a>
+            <a href="/list/sorted/by_view" role="button" class="btn btn-info col-4 float-left">Sort by View Number</a>
+            <a href="/list/sorted/by_vote" role="button" class="btn btn-primary col-4 float-left">Sort by Vote Number</a>
+            <br>
+            <br>
+            <hr>
+            {% for question in questions %}
+                <div class="container bg-light shadow p-2 d-flex rounded-sm col-12" style="margin-bottom: 2%"> <!-- Python Functions -->
+                    <div class="col-sm-2 float-left" style="overflow: hidden; white-space: nowrap;"><a href="/show_question/{{ question['id'] }}">{{ question['title'] }} </a></div>
+                    <div class="col-sm-3 float-left" style="overflow: hidden; white-space: nowrap;"><p>{{ question['message'] }}</p></div>
+                    <div class="col-sm-2 float-left"><p>{{ question['submission_time'] }}</p></div>
+                    <div class="col-sm-1 float-left"><p>{{ question['view_number'] }}</p></div>
+                    <div class="col-sm-1 float-left"><p>{{ question['vote_number'] }}</p></div>
+                    <div class="col-sm-1 float-left"><a href="/list/{{ question['id'] }}/up"><img src="/static/images/up.png" style="height: 75%; width: 75%"></a></div>
+                    <div class="col-sm-1 float-left"><a href="/list/{{ question['id'] }}/down"><img src="/static/images/down.png" style="height: 75%; width: 75%"></a></div>
+                    <div class="col-sm-1 float-left"><p>None</p></div>
+                </div>
+            {% endfor %}
         </div>
-        <div class="big_center">
-            <div class="inside">
-                <table>
-                    <a href="/list/sorted/by_date"><button id="date"><span>Date</span></button></a>
-                    <a href="/list/sorted/by_vote"><button id="vote"><span>Vote</span></button></a>
-                    <tr>
-                        <th>Index</th>
-                        <th>Tytuł</th>
-                        <th>Pytanie</th>
-                        <th>Czas dodania</th>
-                        <th>Ilość wyświetleń</th>
-                        <th>ilość likeów</th>
-                    </tr>
-                    </br>
-                {% for question in questions  %}
-                        <tr>
-                            <td>{{ loop.index }} </td>
-                            <td id="border"><a class="list" href="/show_question/{{ question['id'] }}">{{ question['title'] }} </a></td>
-                            <td>{{ question['message'] }} </td>
-                            <td>{{ question['submission_time'] }} </td>
-                            <td>{{ question['view_number'] }} </td>
-
-                            {% if question['vote_number']|int < 0 %}
-                                <td class="red" >{{ question['vote_number'] }} </td>
-                            {% elif question['vote_number']|int == 0 %}
-                                <td class="yellow" >{{ question['vote_number'] }} </td>
-                            {% else %}
-                                <td class="green" >{{ question['vote_number'] }} </td>
-                            {% endif %}
-
-                            <td>
-                                <a href="/list/{{ question['id'] }}/up"><img border="0" src="/static/up.png" width="50" height="50"></a>
-                            </td>
-                            <td>
-                                <a href="/list/{{ question['id'] }}/down"><img border="0" src="/static/down.png" width="50" height="50"></a>
-                            </td>
-                            {% if question['image'] %}
-                            <td><img src="/static/{{ question['image'] }}" alt="Example image" class="img-thumbnail" style="height:70px; width:auto;"></td>
-                            {% else %}
-                                <td><img src="http://placehold.it/80" alt="Example image" class="img-thumbnail" style="height:70px; width:auto;"></td>
-                            {% endif %}
-                                <td><a href="/question/{{ question['id'] }}/delete"><button type="submit" formmethod="post" id="delete"><span>DELETE</span></button></a>
-                    </tr>
-                {% endfor %}
-                </table>
-            </div>
-        </div>
-    </body>
+    </div>
+</div>
+<footer class="page-footer font-small blue bg-light">
+  <div class="footer-copyright text-center py-3">© 2019 copyright: Über Team</div>
+</footer>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
 </html>
