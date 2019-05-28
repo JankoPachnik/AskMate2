@@ -11,9 +11,10 @@ UPLOAD_FOLDER = 'AskMate2/static/images'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.secret_key = 'ptaki lataja kluczem'
-login_manager = flask_login.LoginManager()
-login_manager.init_app(app)
 
+login_manager = flask_login.LoginManager()
+
+login_manager.init_app(app)
 
 
 @app.route('/')
@@ -77,7 +78,7 @@ def show_question(id):
 def add_comment(id):
     data = request.form
     if request.method == 'POST':
-        data_manager_comment.add_comment(data, id)
+        data_manager_comment.add_comment(data, id, session['username'])
         question_id = data_manager_operations.get_question_id(id)
         return redirect('/show_question/' + question_id)     #trzea naprawic id
     return render_template('add_comment.html', id=id)
@@ -86,8 +87,12 @@ def add_comment(id):
 @app.route('/question/<id>/new-answer', methods=['GET', 'POST'])
 def route_new_answer(id):
     if request.method == 'POST':
-        data_manager_answers.add_answer(request.form, id)
-        return redirect('/show_question/' + id)
+        if "username" in session:
+            data_manager_answers.add_answer(request.form, id, session["username"])
+            return redirect('/show_question/' + id)
+        else:
+            data_manager_answers.add_answer(request.form, id)
+            return redirect('/show_question/' + id)
     login = None
     if 'username' in session:
         login = session['username']
@@ -99,7 +104,8 @@ def about():
     return render_template("about.html")
 
 
-@app.route('/add_question', methods=['GET', 'POST'])
+
+app.route('/add_question', methods=['GET', 'POST'])
 def add():
     tags = data_manager_questions.get_tags()
 
@@ -107,30 +113,21 @@ def add():
     if request.method == 'POST':
         file = request.files['photo']
         filename = secure_filename(file.filename)
-        data_manager_questions.new_question(data, filename)
+        if 'username' in session:
+            data_manager_questions.new_question(data, session['username'],filename)
+        else:
+            data_manager_questions.new_question(data,filename)
 
     if request.method == 'POST' and 'photo' in request.files:
         file = request.files['photo']
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
     else:
         login = None
         if 'username' in session:
             login = session['username']
         return render_template('add.html', login=login, tags=tags)
     return redirect('/list')
-
-def upload():
-    print('dupa')
-    if request.method == 'POST' and 'photo' in request.files:
-        file = request.files['file']
-        print('dupa')
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], 'dupa.jpg'))
-        return redirect(url_for('uploaded_file',
-                                    filename=filename))
-    return
-
 
 @app.route('/question/<question_id>/delete')  # delete question
 def route_delete_question(question_id):
@@ -211,7 +208,9 @@ def login():
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
-    session.pop('username', None)
+    session.pop('username')
+    session.pop('email')
+    session.pop('reputation')
     return redirect('/login')
 
 
@@ -223,6 +222,8 @@ def register():
             return render_template("register.html", message=data_manager_user_operations.verify_credentials(data))
         else:
             data_manager_user_operations.register(data)
+            session['username'] = request.form['username']
+            session['email'] = request.form['email']
             return redirect('/my_page')
     return render_template("register.html")
 
@@ -230,12 +231,38 @@ def register():
 @app.route('/my_page')
 def my_page():
     if 'username' in session:
-        return render_template("my_page.html", message=session['username'])
-    return render_template("my_page.html")
+        data_manager_user_operations.reputation_update(session['username'])
+        info = data_manager_user_operations.get_email_and_reputation(session['username'])
+        session['email'] = info[0]['user_email']
+        session['reputation'] = info[0]['user_reputation']
+        user_questions = data_manager_questions.get_questions_to_user(session["username"])
+        return render_template("my_page_extend.html", username=session['username'], email=session['email'], reputation=session['reputation'], user_questions=user_questions)
+    return redirect("login.html")
 
 
+@app.route('/my_page/answers')
+def my_page_answers():
+    if 'username' in session:
+        user_answers = data_manager_answers.get_answers_to_user(session["username"])
+        return render_template("my_page_extend_answers.html", username=session['username'], email=session['email'], reputation=session['reputation'], user_answers=user_answers)
+    return redirect("login.html")
 
 
+@app.route('/ranking')
+def ranking():
+    users_info = data_manager_user_operations.get_user_info()
+    login = None
+    if 'username' in session:
+        login = session['username']
+    return render_template("ranking.html", users_info=users_info, login=login)
+
+
+@app.route('/my_page/comment')
+def my_page_comment():
+    if 'username' in session:
+        user_comments = data_manager_comment.get_comment_to_user(session["username"])
+        return render_template("my_page_extend_comments.html", username=session['username'], email=session['email'], reputation=session['reputation'], user_comments=user_comments)
+    return redirect("login.html")
 
 
 if __name__ == '__main__':
