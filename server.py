@@ -197,8 +197,8 @@ def login():
 def logout():
     # remove the username from the session if it's there
     session.pop('username')
-    # session.pop('email')
-    # session.pop('reputation')
+    session.pop('email')
+    session.pop('reputation')
     return redirect('/login')
 
 
@@ -232,7 +232,7 @@ def my_page():
 def my_page_answers():
     if 'username' in session:
         user_answers = data_manager_answers.get_answers_to_user(session["username"])
-        return render_template("my_page_extend_answers.html",  username=session['username'], email=session['email'], reputation=session['reputation'], user_answers=user_answers)
+        return render_template("my_page_extend_answers.html", username=session['username'], email=session['email'], reputation=session['reputation'], user_answers=user_answers)
     return redirect("login.html")
 
 
@@ -244,12 +244,13 @@ def ranking():
         login = session['username']
     return render_template("ranking.html", users_info=users_info, login=login)
 
-#@app.route('/my_page/comment')
-#def my_page_answers():
-    #if 'username' in session:
-        #user_answers = data_manager_answers.get_comments_to_user(session["username"])
-        #return render_template("my_page_extend_answers.html", message=session['username'], user_comments=user_comments)
-    #return redirect("login.html")
+
+@app.route('/my_page/comment')
+def my_page_comment():
+    if 'username' in session:
+        user_comments = data_manager_comment.get_comment_to_user(session["username"])
+        return render_template("my_page_extend_comments.html", username=session['username'], email=session['email'], reputation=session['reputation'], user_comments=user_comments)
+    return redirect("login.html")
 
 
 if __name__ == '__main__':

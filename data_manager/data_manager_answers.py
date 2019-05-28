@@ -18,7 +18,7 @@ def get_answers_to_user(user_id):
 
 def add_answer(form_data, id, username=None):
     username = data_manager_user_operations.check_user_id(username)
-    new_answer = (datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 0, id, form_data['message'], None, username[0]["user_id"])
+    new_answer = (datetime.now().strftime("%Y-%m-%d %H:%M"), 0, id, form_data['message'], None, username[0]["user_id"])
     sql_query = """INSERT INTO answer (submission_time, vote_number, question_id, message, image, user_id) 
     VALUES (%s, %s, %s, %s, %s, %s)"""
     db_connection.sql_data(sql_query, "write", new_answer)
