@@ -1,15 +1,19 @@
-from flask import Flask, render_template, request, redirect, session, escape
+import os
+from flask import Flask, render_template, request, redirect, session, escape, url_for
 import flask_login
 from data_manager import data_manager_questions, data_manager_comment, data_manager_answers, data_manager_operations, data_manager_user_operations
+from werkzeug.utils import secure_filename
+
 
 app = Flask(__name__)
 
-app.config['UPLOADED_PHOTOS_DEST'] = 'ask-mate-python/static/images'
+UPLOAD_FOLDER = 'AskMate2/static/images'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 app.secret_key = 'ptaki lataja kluczem'
-
 login_manager = flask_login.LoginManager()
-
 login_manager.init_app(app)
+
 
 
 @app.route('/')
@@ -101,13 +105,31 @@ def add():
 
     data = request.form
     if request.method == 'POST':
-        data_manager_questions.new_question(data)
+        file = request.files['photo']
+        filename = secure_filename(file.filename)
+        data_manager_questions.new_question(data, filename)
+
+    if request.method == 'POST' and 'photo' in request.files:
+        file = request.files['photo']
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
     else:
         login = None
         if 'username' in session:
             login = session['username']
         return render_template('add.html', login=login, tags=tags)
     return redirect('/list')
+
+def upload():
+    print('dupa')
+    if request.method == 'POST' and 'photo' in request.files:
+        file = request.files['file']
+        print('dupa')
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], 'dupa.jpg'))
+        return redirect(url_for('uploaded_file',
+                                    filename=filename))
+    return
 
 
 @app.route('/question/<question_id>/delete')  # delete question
@@ -210,6 +232,10 @@ def my_page():
     if 'username' in session:
         return render_template("my_page.html", message=session['username'])
     return render_template("my_page.html")
+
+
+
+
 
 
 if __name__ == '__main__':

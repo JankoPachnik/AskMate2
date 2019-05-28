@@ -45,7 +45,12 @@
                     <div class="col-sm-1 float-left"><p>{{ question['vote_number'] }}</p></div>
                     <div class="col-sm-1 float-left"><a href="/list/{{ question['id'] }}/up"><img src="/static/images/up.png" style="height: 75%; width: 75%"></a></div>
                     <div class="col-sm-1 float-left"><a href="/list/{{ question['id'] }}/down"><img src="/static/images/down.png" style="height: 75%; width: 75%"></a></div>
-                    <div class="col-sm-1 float-left"><p>None</p></div>
+                    {% if question['image'] %}
+                            <td class="user-image__wrapper-list"><img src="/static/images/{{ question['image'] }}" alt="Example image" width="80" height="80"  ></td>
+                        {% else %}
+                            <td class="user-image__wrapper-list"><img src="http://placehold.it/80" alt="Example image" class="img-thumbnail user-image__image"></td>
+                        {% endif %}
+                        <td><a href="/question/{{ question['id'] }}/delete"><i class="fas fa-trash text-danger"></i></a></td>
                 </div>
             {% endfor %}
         </div>
