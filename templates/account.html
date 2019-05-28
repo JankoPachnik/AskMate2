@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <title>Edit Question</title>
+    <title>My Account</title>
 </head>
 <body style="height: 100%">
 <nav class="navbar bg-light navbar-light fixed-top">
@@ -13,9 +13,9 @@
         <li class="nav-item"><a class="nav-link" href="/add_question">Add Question</a></li>
         <li class="nav-item"><a class="nav-link" href="/list">Browse Questions</a></li>
         {% if login %}
-            <li class="nav-item"><a class="nav-link" href="/my_page">{{ login }}</a></li>
+            <li class="nav-item"><a class="nav-link active" href="/account">My Account</a></li>
         {% else %}
-            <li class="nav-item"><a class="nav-link" href="/login"><img class="" src="/static/images/user.svg" style="height: 20%; width: 20%">Log in</a></li>
+            <li class="nav-item"><a class="nav-link" href="/login"><img class="" src="static/images/user.svg" style="height: 15%; width: 15%">My account</a></li>
         {% endif %}
     </ul>
     <ul class="nav float-right">
@@ -28,22 +28,24 @@
     </ul>
 </nav>
 <div class="container col-12 d-flex justify-content-center h-100 d-inline-block" style="background-color: #ccefff;">
-    <div class="container col-8 d-flex justify-content-center h-100 d-inline-block border border-secondary border-bottom-0" style="background-color: white;">
-        <form action="/show_question/{{ questions[0]['id'] }}/edit" method="POST" class="col-8" style="margin-top: 8%; margin-bottom: 8%">
-             <fieldset class="col-12">
-                 <legend>Edit Your Question:</legend>
-                 <div class="input-group" style="margin-bottom: 2%">
-                    <input name='title' type="text" class="form-control" value="{{ questions[0]['title'] }}">
-                 </div>
-                 <textarea name="message" class="form-control" rows="6">{{ questions[0]['message'] }}</textarea><br>
-                 <button class="btn btn-outline-info btn-block" type="submit" formmethod="post">Post</button>
-             </fieldset>
-        </form>
+    <div class="container col-8 d-flex justify-content-center h-100 d-inline-block border border-secondary border-bottom-0 bg-light">
+        <div class="container col-12" style="margin-top: 15%">
+            <div class="container">
+                <div class="jumbotron col-4">
+                    <p>Example</p>
+                    <p>example@gmail.com</p>
+                    <p>Reputation: </p>
+                </div>
+            </div>
+            <div class="container">
+
+            </div>
+        </div>
     </div>
 </div>
 <footer class="page-footer font-small blue bg-light">
   <div class="footer-copyright text-center py-3">© 2019 copyright: Über Team</div>
 </footer>
-<<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

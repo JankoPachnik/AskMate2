@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Log In</title>
+</head>
+<body style="height: 100%">
+<nav class="navbar bg-light navbar-light fixed-top">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a class="nav-link" href="/">Main Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="/add_question">Add Question</a></li>
+        <li class="nav-item"><a class="nav-link" href="/list">Browse Questions</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/login"><img class="" src="/static/images/user.svg" style="height: 20%; width: 20%">Log in</a></li>
+
+    </ul>
+    <ul class="nav float-right">
+        <li class="nav-item">
+            <form class="form-inline" action="/action_page.php">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </li>
+    </ul>
+</nav>
+<div class="container col-12 d-flex justify-content-center h-100 d-inline-block" style="background-color: #ccefff;">
+    <div class="container col-8 d-flex justify-content-center h-100 d-inline-block border border-secondary border-bottom-0 bg-light">
+        <div class="container col-5" style="margin-top: 20%">
+            <img class="" src="static/images/user.svg" style="height: 50%; width: 50%; margin-left: 22%; margin-bottom: -15%">
+            <form class="mr-4 col-12" action="/login" method="POST">
+                <div class="input-group">
+                    <input id="username" type="text" class="form-control" name="username" placeholder="Username">
+                </div>
+                <div class="input-group">
+                    <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                </div>
+                <button type="submit"class="btn btn-outline-info">Log In</button>
+                <a href="/register">Dont have an account?</a>
+            </form>
+            {% if message %}
+                <div class="alert alert-danger">
+                    <strong>Error:</strong> {{ message }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<footer class="page-footer font-small blue bg-light">
+  <div class="footer-copyright text-center py-3">© 2019 copyright: Über Team</div>
+</footer>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
