@@ -13,9 +13,9 @@
         <li class="nav-item"><a class="nav-link" href="/add_question">Add Question</a></li>
         <li class="nav-item"><a class="nav-link active" href="/list">Browse Questions</a></li>
         {% if login %}
-            <li class="nav-item"><a class="nav-link" href="/account">My Account</a></li>
+            <li class="nav-item"><a class="nav-link" href="/my_page">{{ login }}</a></li>
         {% else %}
-            <li class="nav-item"><a class="nav-link" href="/login"><img class="" src="/static/images/user.svg" style="height: 15%; width: 15%">Log in</a></li>
+            <li class="nav-item"><a class="nav-link" href="/login"><img class="" src="/static/images/user.svg" style="height: 20%; width: 20%">Log in</a></li>
         {% endif %}
     </ul>
     <ul class="nav float-right">
@@ -31,24 +31,21 @@
     <div class="container col-8 h-100 d-inline-block border border-secondary border-bottom-0" style="background-color: white;">
         <div class="container col-12" style="margin-top: 8%">
             <a href="/list/sorted/by_date" role="button" class="btn btn-secondary col-4 float-left">Sort by Submission Time</a>
-            <button type="button" class="btn btn-info col-4 float-left">Sort by View Number</button>
+            <a href="/list/sorted/by_view" role="button" class="btn btn-info col-4 float-left">Sort by View Number</a>
             <a href="/list/sorted/by_vote" role="button" class="btn btn-primary col-4 float-left">Sort by Vote Number</a>
             <br>
             <br>
             <hr>
             {% for question in questions %}
                 <div class="container bg-light shadow p-2 d-flex rounded-sm col-12" style="margin-bottom: 2%"> <!-- Python Functions -->
-                    <div class="col-sm-3 float-left" style="overflow: hidden; white-space: nowrap;"><a href="/show_question/{{ question['id'] }}">{{ question['title'] }} </a></div>
-                    <div class="col-sm-4 float-left" style="overflow: hidden; white-space: nowrap;"><p>{{ question['message'] }}</p></div>
+                    <div class="col-sm-2 float-left" style="overflow: hidden; white-space: nowrap;"><a href="/show_question/{{ question['id'] }}">{{ question['title'] }} </a></div>
+                    <div class="col-sm-3 float-left" style="overflow: hidden; white-space: nowrap;"><p>{{ question['message'] }}</p></div>
                     <div class="col-sm-2 float-left"><p>{{ question['submission_time'] }}</p></div>
                     <div class="col-sm-1 float-left"><p>{{ question['view_number'] }}</p></div>
                     <div class="col-sm-1 float-left"><p>{{ question['vote_number'] }}</p></div>
-                    {% if question['image'] %}
-                            <td class="col-sm-1 float-left"><img src="/static/{{ question['image'] }}" alt="Example image" class="img-thumbnail user-image__image"></td>
-                        {% else %}
-                            <td class="col-sm-1 float-left"><img src="http://placehold.it/80" alt="Example image" class="img-thumbnail user-image__image"></td>
-                        {% endif %}
-                        <td><a href="/question/{{ question['id'] }}/delete"><i class="fas fa-trash text-danger"></i></a></td>
+                    <div class="col-sm-1 float-left"><a href="/list/{{ question['id'] }}/up"><img src="/static/images/up.png" style="height: 75%; width: 75%"></a></div>
+                    <div class="col-sm-1 float-left"><a href="/list/{{ question['id'] }}/down"><img src="/static/images/down.png" style="height: 75%; width: 75%"></a></div>
+                    <div class="col-sm-1 float-left"><p>None</p></div>
                 </div>
             {% endfor %}
         </div>
@@ -57,6 +54,6 @@
 <footer class="page-footer font-small blue bg-light">
   <div class="footer-copyright text-center py-3">© 2019 copyright: Über Team</div>
 </footer>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
