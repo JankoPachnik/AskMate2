@@ -218,7 +218,7 @@ def register():
 @app.route('/my_page')
 def my_page():
     if 'username' in session:
-        #data_manager_user_operations.reputation_update(session['username'])
+        data_manager_user_operations.reputation_update(session['username'])
         info = data_manager_user_operations.get_email_and_reputation(session['username'])
         session['email'] = info[0]['user_email']
         session['reputation'] = info[0]['user_reputation']

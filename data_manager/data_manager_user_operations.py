@@ -19,11 +19,23 @@ def verify_login(data):
     return 1
 
 
-def reputation_update(username=None):
+def reputation_update(username='qwe'):
     user_id = check_user_id(username)
-    sql_query = """SELECT vote_number FROM question, answer WHERE user_id = %s"""
-    vote_numbers = db_connection.sql_data(sql_query, "read", user_id[0]['user_id'])
-    pass
+    sql_query = """SELECT vote_number FROM question WHERE user_id = %s"""
+    vote_numbers = db_connection.sql_data(sql_query, "read", (user_id[0]['user_id'], ))
+    reputation = 0
+    for dictionary in vote_numbers:
+        reputation += int(dictionary['vote_number'])
+    sql_query = """SELECT vote_number FROM answer WHERE user_id = %s"""
+    vote_numbers = db_connection.sql_data(sql_query, "read", (user_id[0]['user_id'], ))
+    for dictionary in vote_numbers:
+        reputation += int(dictionary['vote_number'])
+
+    sql_query = """UPDATE credentials 
+    SET user_reputation = %s
+    WHERE user_id = %s"""
+    data = (reputation, user_id[0]['user_id'])
+    db_connection.sql_data(sql_query, "update", data)
 
 
 def get_email_and_reputation(username=None):
