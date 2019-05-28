@@ -1,5 +1,6 @@
 import datetime
 import db_connection
+from data_manager import data_manager_user_operations
 
 
 def get_questions():
@@ -7,6 +8,13 @@ def get_questions():
     q_list = db_connection.sql_data(sql_query, "read")
     print(q_list)
     return q_list
+
+
+def get_questions_to_user(user_id):
+    user_id = data_manager_user_operations.check_user_id(user_id)
+    sql_query = """SELECT * FROM question WHERE user_id = %s ORDER BY id ASC"""
+    user_questions = db_connection.sql_data(sql_query, "read", (user_id[0]['user_id'], ))
+    return user_questions
 
 
 def get_tags():
@@ -50,11 +58,12 @@ def question_view_count_increase(id):
     db_connection.sql_data(sql_update, "update", id)
 
 
-def new_question(request):
+def new_question(request, username=None):
     data = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    question = (data, "0", "0", request['title'], request["message"], None)
-    sql_query = """INSERT INTO question (submission_time, view_number, vote_number, title, message, image) 
-    VALUES (%s, %s, %s, %s, %s, %s);"""
+    username = data_manager_user_operations.check_user_id(username)
+    question = (data, "0", "0", request['title'], request["message"], None, username[0]['user_id'])
+    sql_query = """INSERT INTO question (submission_time, view_number, vote_number, title, message, image, user_id) 
+    VALUES (%s, %s, %s, %s, %s, %s, %s);"""
     db_connection.sql_data(sql_query, "write", question)
 
 
@@ -103,6 +112,7 @@ def sort_view():
     sql_read = """SELECT * FROM question ORDER BY view_number DESC"""
     questions = db_connection.sql_data(sql_read, "read")
     return questions
+
 
 def add_new_tag(question_id, tag_id, tag_name):
     new_tag = tag_name

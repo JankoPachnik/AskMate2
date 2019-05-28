@@ -1,0 +1,15 @@
+{% extends 'my_page.html' %}
+{% block content %}
+    {% if user_commets %}
+        <table class = "table table-striped table-hover col-12">
+            <tbody> <!-- Need to add python functions -->
+                {% for comment in user_comments %}
+                    <tr>
+                        <td>{{ comment['message'] }}</td>
+                        <td>{{ comment['submission_time'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
