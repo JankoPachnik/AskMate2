@@ -19,6 +19,12 @@ def verify_login(data):
     return 1
 
 
+def get_user_info():
+    sql_query= """SELECT user_login, user_email, user_reputation FROM credentials ORDER BY user_reputation DESC"""
+    users_info = db_connection.sql_data(sql_query, "read")
+    return users_info
+
+
 def reputation_update(username='qwe'):
     user_id = check_user_id(username)
     sql_query = """SELECT vote_number FROM question WHERE user_id = %s"""
