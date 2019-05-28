@@ -82,8 +82,12 @@ def add_comment(id):
 @app.route('/question/<id>/new-answer', methods=['GET', 'POST'])
 def route_new_answer(id):
     if request.method == 'POST':
-        data_manager_answers.add_answer(request.form, id)
-        return redirect('/show_question/' + id)
+        if "username" in session:
+            data_manager_answers.add_answer(request.form, id, session["username"])
+            return redirect('/show_question/' + id)
+        else:
+            data_manager_answers.add_answer(request.form, id)
+            return redirect('/show_question/' + id)
     login = None
     if 'username' in session:
         login = session['username']
@@ -101,7 +105,10 @@ def add():
 
     data = request.form
     if request.method == 'POST':
-        data_manager_questions.new_question(data)
+        if 'username' in session:
+            data_manager_questions.new_question(data, session['username'])
+        else:
+            data_manager_questions.new_question(data)
     else:
         login = None
         if 'username' in session:
@@ -189,7 +196,9 @@ def login():
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
-    session.pop('username', None)
+    session.pop('username')
+    session.pop('email')
+    session.pop('reputation')
     return redirect('/login')
 
 
@@ -201,6 +210,7 @@ def register():
             return render_template("register.html", message=data_manager_user_operations.verify_credentials(data))
         else:
             data_manager_user_operations.register(data)
+            session['username'] = request.form['username']
             return redirect('/my_page')
     return render_template("register.html")
 
@@ -208,8 +218,29 @@ def register():
 @app.route('/my_page')
 def my_page():
     if 'username' in session:
-        return render_template("my_page.html", message=session['username'])
-    return render_template("my_page.html")
+        #data_manager_user_operations.reputation_update(session['username'])
+        info = data_manager_user_operations.get_email_and_reputation(session['username'])
+        session['email'] = info[0]['user_email']
+        session['reputation'] = info[0]['user_reputation']
+        user_questions = data_manager_questions.get_questions_to_user(session["username"])
+        return render_template("my_page_extend.html", username=session['username'], email=session['email'], reputation=session['reputation'], user_questions=user_questions)
+    return redirect("login.html")
+
+
+@app.route('/my_page/answers')
+def my_page_answers():
+    if 'username' in session:
+        user_answers = data_manager_answers.get_answers_to_user(session["username"])
+        return render_template("my_page_extend_answers.html",  username=session['username'], email=session['email'], reputation=session['reputation'], user_answers=user_answers)
+    return redirect("login.html")
+
+
+#@app.route('/my_page/comment')
+#def my_page_answers():
+    #if 'username' in session:
+        #user_answers = data_manager_answers.get_comments_to_user(session["username"])
+        #return render_template("my_page_extend_answers.html", message=session['username'], user_comments=user_comments)
+    #return redirect("login.html")
 
 
 if __name__ == '__main__':

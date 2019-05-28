@@ -19,6 +19,25 @@ def verify_login(data):
     return 1
 
 
+def reputation_update(username=None):
+    user_id = check_user_id(username)
+    sql_query = """SELECT vote_number FROM question, answer WHERE user_id = %s"""
+    vote_numbers = db_connection.sql_data(sql_query, "read", user_id[0]['user_id'])
+    pass
+
+
+def get_email_and_reputation(username=None):
+    sql_query = """SELECT user_email, user_reputation FROM credentials WHERE user_login = %s"""
+    info = db_connection.sql_data(sql_query, "read", (username, ))
+    return info
+
+
+def check_user_id(username):
+    sql_query = """SELECT user_id FROM credentials WHERE user_login = %s"""
+    user_id = db_connection.sql_data(sql_query, "read", (username, ))
+    return user_id
+
+
 def hash_password(plain_text_password):
     # By using bcrypt, the salt is saved into the hash itself
     hashed_bytes = bcrypt.hashpw(plain_text_password.encode('utf-8'), bcrypt.gensalt())

@@ -1,0 +1,17 @@
+{% extends 'my_page.html' %}
+{% block content %}
+    {% if user_questions %}
+        <table class = "table table-striped table-hover col-12">
+            <tbody> <!-- Need to add python functions -->
+                {% for question in user_questions %}
+                    <tr>
+                        <td>{{ question['title'] }}</td>
+                        <td>{{ question['message'] }}</td>
+                        <td>{{ question['vote_number'] }}</td>
+                        <td>{{ question['submission_time'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
