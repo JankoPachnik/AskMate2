@@ -33,19 +33,28 @@ def list_of_questions():
 @app.route('/list/sorted/by_date')
 def sorted_by_date():
     questions = data_manager_questions.sort_time()
-    return render_template('list.html', questions=questions)
+    login = None
+    if 'username' in session:
+        login = session['username']
+    return render_template('list.html', questions=questions, login=login)
 
 
 @app.route('/list/sorted/by_view')
 def sorted_by_view():
     questions = data_manager_questions.sort_view()
-    return render_template('list.html', questions=questions)
+    login = None
+    if 'username' in session:
+        login = session['username']
+    return render_template('list.html', questions=questions, login=login)
 
 
 @app.route('/list/sorted/by_vote')
 def sorted_by_vote():
     questions = data_manager_questions.sort_vote()
-    return render_template('list.html', questions=questions)
+    login = None
+    if 'username' in session:
+        login = session['username']
+    return render_template('list.html', questions=questions, login=login)
 
 
 @app.route('/show_question/<id>')       #dodanie wyswietlania commentarzy

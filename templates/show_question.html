@@ -34,7 +34,7 @@
                 <h1>{{ object['title'] }}</h1>
                 <p class="lead">{{ object['message'] }}</p>
                 <hr class="my-4">
-                <p>{{ object['submission_time'].isoformat(' ')}}{{ object['view_number']}}{{ object['vote_number']}}</>
+                <p>{{ object['submission_time'].isoformat(' ')}}{{ object['view_number']}}{{ object['vote_number']}}</p>
                 <div class="container col-5 float-right">
                     <a href="/question/{{ object['id'] }}/delete" role="button" class="btn btn-outline-danger float-right">Delete</a>
                     <a href="/show_question/{{ object['id'] }}/edit" role="button" class="btn btn-outline-warning float-right mr-3">Eddit</a>
@@ -60,6 +60,6 @@
 <footer class="page-footer font-small blue bg-light">
   <div class="footer-copyright text-center py-3">© 2019 copyright: Über Team</div>
 </footer>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

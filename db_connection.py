@@ -4,10 +4,10 @@ import psycopg2.extras
 
 def sql_data(sql_query, operation_type, data=None):
     try:
-        user_name = "michalkandybowicz"
-        password = "Miki203"
+        user_name = "janek"
+        password = ""
         host = "localhost"
-        database_name = "new_database"
+        database_name = "AskMate"
 
         connect_str = "postgresql://{user_name}:{password}@{host}/{database_name}".format(
             user_name=user_name,
