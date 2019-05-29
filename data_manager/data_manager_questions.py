@@ -68,12 +68,12 @@ def new_question(request, username=None):
 
 
 def delete_question_element(element_id):
-    sql_query_question = """DELETE FROM question, WHERE id = %s;"""
-    db_connection.sql_data(sql_query_question, "write", (element_id, ))
+    sql_query_question = """DELETE FROM question WHERE id = %s;"""
+    db_connection.sql_data(sql_query_question, "write", element_id)
     sql_query_answer = """DELETE FROM answer WHERE question_id = %s;"""
-    db_connection.sql_data(sql_query_answer, "write", (element_id, ))
+    db_connection.sql_data(sql_query_answer, "write", element_id)
     sql_query_comment = """DELETE FROM comment WHERE question_id = %s;"""
-    db_connection.sql_data(sql_query_comment, "write", (element_id, ))
+    db_connection.sql_data(sql_query_comment, "write", element_id)
 
 
 def vote_questions_plus(id):
