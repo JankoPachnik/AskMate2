@@ -2,8 +2,10 @@
 <!DOCTYPE html>
 <html lang="en" style="height: 100%">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../tags.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Add Question</title>
 </head>
@@ -35,20 +37,14 @@
              <fieldset class="col-12">
                  <legend>Enter question you want to Submit:</legend>
                  <label for="title">Title of your question: </label>
-                 <textarea name="title" class="form-control" id="title" rows="1" placeholder="your title:"></textarea>
+                 <textarea name="title" class="form-control" id="title" rows="1" placeholder="your title:"> </textarea>
                  <label for="message">Your question: </label>
-                 <textarea name="message" class="form-control" id="message" rows="6" placeholder="your question:"></textarea>
-
-                 <br>
-                         TAGS:
-                         <br>
-                         {% for tag in tags %}
-                            <tr>
-                                <td>{{ tag['name'] }} </td>
-                         {% endfor %}
-                 <br>
-
-
+                 <textarea name="message" class="form-control" id="message" rows="6" placeholder="your question:">
+                 </textarea>
+                 <p>
+                     ENTER SOME TAGS:
+                 </p>
+                 <script type="javascript" src="templates/tags.js"></script>
                  <button class="btn btn-outline-info btn-block" type="submit" formmethod="post">Post</button>
             </fieldset>
         </form>
@@ -69,6 +65,6 @@
 <footer class="page-footer font-small blue bg-light">
   <div class="footer-copyright text-center py-3">© 2019 copyright: Über Team</div>
 </footer>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

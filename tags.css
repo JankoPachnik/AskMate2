@@ -1,0 +1,38 @@
+tags-imput {
+    border: 1px grey;
+    display: inline-block;
+}
+
+tags-input .tag {
+    font-size: 80%;
+    padding: 0.5em 0.75em;
+    margin: 0.25em 0.1em;
+    display: inline-block;
+    background-color: white;
+    transition: all 0.1s linear;
+    cursor: pointer;
+}
+
+tags-input .tag:hover {
+    background-color: mediumblue;
+    color: white;
+}
+
+tags-input .tag .close::after {
+    content: 'x';
+    font-weight: bold;
+    display: inline-block;
+    transform: scale(1.4);
+    margin-left: 0.75em;
+
+}
+
+tags-input .tag .close:hover::after {
+    color: red;
+}
+
+tags-input .main-input {
+    border: 0;
+    outline: 0;
+    padding: 0.5em 0.1em;
+}
