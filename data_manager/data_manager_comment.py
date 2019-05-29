@@ -9,7 +9,7 @@ def add_comment(form_data, id, username=None):
     for answer in answer_row:
         question_id = answer["question_id"]
     user_id = data_manager_user_operations.check_user_id(username)
-    data = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    data = datetime.now().strftime("%Y-%m-%d %H:%M")
     new_comment = (form_data['comment'], data, 0, id, question_id, user_id[0]['user_id'])
     sql_query = """INSERT INTO comment (message, submission_time, edited_count, answer_id, question_id, user_id) 
     VALUES (%s, %s, %s, %s, %s, %s)"""
