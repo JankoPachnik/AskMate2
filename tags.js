@@ -21,7 +21,7 @@
     el.appendChild(mainInput);
     el.appendChild(hiddenInput);
 
-    addTag('hello world');
+    // addTag('hello world');  //do testowania
 
     function addTag(text) {
         let tag = {
@@ -68,3 +68,4 @@
     }
 
 });
+
