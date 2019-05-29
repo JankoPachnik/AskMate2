@@ -104,30 +104,31 @@ def about():
     return render_template("about.html")
 
 
-
 app.route('/add_question', methods=['GET', 'POST'])
 def add():
     tags = data_manager_questions.get_tags()
-
     data = request.form
+    file = request.files['photo']
+    filename = secure_filename(file.filename)
     if request.method == 'POST':
-        file = request.files['photo']
-        filename = secure_filename(file.filename)
         if 'username' in session:
-            data_manager_questions.new_question(data, session['username'],filename)
+            data_manager_questions.new_question(data, session['username'], filename)
         else:
-            data_manager_questions.new_question(data,filename)
-
-    if request.method == 'POST' and 'photo' in request.files:
-        file = request.files['photo']
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            data_manager_questions.new_question(data, session['username'], filename)
     else:
         login = None
         if 'username' in session:
             login = session['username']
         return render_template('add.html', login=login, tags=tags)
+
+    if request.method == 'POST' and 'photo' in request.files:
+        file = request.files['photo']
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return redirect(url_for('uploaded_file',
+                                filename=filename))
     return redirect('/list')
+
 
 @app.route('/question/<question_id>/delete')  # delete question
 def route_delete_question(question_id):

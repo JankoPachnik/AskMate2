@@ -61,9 +61,10 @@ def question_view_count_increase(id):
 def new_question(request, username=None, filename):
     data = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     username = data_manager_user_operations.check_user_id(username)
-    question = (data, "0", "0", request['title'], request["message"], filename, username[0]['user_id'])
+    question = (data, "0", "0", request['title'], request["message"],  filename, username[0]['user_id'])
     sql_query = """INSERT INTO question (submission_time, view_number, vote_number, title, message, image, user_id) 
-    VALUES (%s, %s, %s, %s, %s, %s, %s);"""
+        VALUES (%s, %s, %s, %s, %s, %s, %s);"""
+    db_connection.sql_data(sql_query, "write", question)
 
 
 
