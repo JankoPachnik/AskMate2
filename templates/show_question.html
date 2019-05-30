@@ -57,7 +57,7 @@
                                 {% set margin = counter * 5 %}
                                 <div class="container d-flex col-12">
                                     <p class="lead col-8" style="font-size: small; margin-left: {{ margin }}%">{{ comment['message'] }}</p>
-                                    <button class="btn btn-outline-danger col-4 justify-content-center" style="max-height: 20px">Delete</button>
+                                    <a href="/comment/{{ comment['id'] }}/delete/{{ question[0]['id'] }}" class="btn btn-outline-danger col-4 justify-content-center">Delete</a>
                                 </div>
                                 {% set counter = counter + 1 %}
                             {% endif %}
