@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="tags.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/tags.css">
+    <script type="text/javascript" src="../static/js/tags.js"></script>
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Add Question</title>
 </head>
@@ -39,8 +40,9 @@
                  <label for="message">Your question: </label>
                  <textarea name="message" class="form-control" id="message" rows="6" placeholder="your question:"></textarea>
                  <p>Enter some tags:</p>
-                 <p><div class="tags-input" data-name="tags-input"></div></p>
-                 <script src="tags.js"></script>
+                    <p><div class="tags-input container col-8" data-name="tags-input">
+                        <span class="tag">CSS<span class="close"></span></span>
+                    </div></p>
                  <button class="btn btn-outline-info btn-block" type="submit" formmethod="post">Post</button>
             </fieldset>
         </form>
@@ -61,6 +63,5 @@
 <footer class="page-footer font-small blue bg-light">
   <div class="footer-copyright text-center py-3">© 2019 copyright: Über Team</div>
 </footer>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

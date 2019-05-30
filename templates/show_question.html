@@ -48,7 +48,7 @@
                 <div class="container col-8 shadow p-4 mb-4 bg-light rounded-sm float-left">
                     <p class="lead col-8">{{ answer['message'] }}</p>
                     <hr>
-                    <p class="col-6">Posted by: {{ answer['submission_time'].isoformat(' ')}} {{answer['vote_number'] }}</p>
+                    <p class="col-6">{{ answer['submission_time'].isoformat(' ')}} {{answer['vote_number'] }}</p>
                     {% if comments %}
                         <div class="container col-12">
                         {% set counter = 1 %}
