@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="static/css/tags.css">
+    <link rel="stylesheet" href="tags.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <title>Add Question</title>
 </head>
@@ -38,10 +38,16 @@
                  <textarea name="title" class="form-control" id="title" rows="1" placeholder="your title:"></textarea>
                  <label for="message">Your question: </label>
                  <textarea name="message" class="form-control" id="message" rows="6" placeholder="your question:"></textarea>
+
                  <p>
-                     ENTER TAGS:
+                     Enter some tags:
                  </p>
-                 <script type="javascript" src="static/js/tags.js"></script>
+                 <p>
+                 <div class="tags-input" data-name="tags-input">
+                 </div>
+                 </p>
+                 <script src="tags.js"></script>
+
                  <button class="btn btn-outline-info btn-block" type="submit" formmethod="post">Post</button>
             </fieldset>
         </form>
