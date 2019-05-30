@@ -1,3 +1,6 @@
+#!/usr/bin/env
+
+
 from flask import Flask, render_template, request, redirect, session, escape
 import flask_login
 from data_manager import data_manager_questions, data_manager_comment, data_manager_answers, data_manager_operations, data_manager_user_operations
@@ -126,6 +129,12 @@ def route_delete_question(question_id):
 @app.route('/answer/<answer_id>/delete/<question_id>')  # delete answer
 def route_delete_answer(answer_id, question_id):
     data_manager_answers.delete_answer_element(answer_id)
+    return redirect('/show_question/' + question_id)
+
+
+@app.route('/comment/<comment_id>/delete/<question_id>')  # delete comment
+def route_delete_comment(comment_id, question_id):
+    data_manager_comment.delete_comment_element(comment_id)
     return redirect('/show_question/' + question_id)
 
 
