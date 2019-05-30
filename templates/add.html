@@ -32,18 +32,16 @@
 <div class="container col-12 d-flex justify-content-center h-100 d-inline-block" style="background-color: #ccefff;">
     <div class="container col-8 d-flex justify-content-center h-100 d-inline-block border border-secondary border-bottom-0" style="background-color: white;">
         <form action="/add_question" method="POST" class="col-8" style="margin-top: 8%; margin-bottom: 8%">
-             <fieldset class="col-12">
-                 <legend>Enter question you want to Submit:</legend>
-                 <label for="title">Title of your question: </label>
-                 <textarea name="title" class="form-control" id="title" rows="1" placeholder="your title:"></textarea>
-                 <label for="message">Your question: </label>
-                 <textarea name="message" class="form-control" id="message" rows="6" placeholder="your question:"></textarea>
-                 <p>Enter some tags:</p>
-                 <p>
-                 <div class="tags-input" data-name="tags-input">
-                    </div></p>
-                 <script type="text/javascript" src="../static/js/tags.js"></script>
-                 <button class="btn btn-outline-info btn-block" type="submit" formmethod="post">Post</button>
+            <fieldset class="col-12">
+                <legend>Enter question you want to Submit:</legend>
+                <label for="title">Title of your question: </label>
+                <textarea name="title" class="form-control" id="title" rows="1" placeholder="your title:"></textarea>
+                <label for="message">Your question: </label>
+                <textarea name="message" class="form-control" id="message" rows="6" placeholder="your question:"></textarea>
+                <p>Enter some tags:</p>
+                <p><div class="tags-input" name="tags" id="tags" data-name="tags"></div></p>
+                <script type="text/javascript" src="../static/js/tags.js"></script>
+                <button class="btn btn-outline-info btn-block" type="submit" formmethod="post">Post</button>
             </fieldset>
         </form>
         <div class="container" style="margin-top: 8%;">

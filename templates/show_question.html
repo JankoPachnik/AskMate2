@@ -36,6 +36,9 @@
                 <p class="lead">{{ object['message'] }}</p>
                 <hr class="my-4">
                 <p>Posted by: {{ object['user_id'] }}   {{ object['submission_time'].isoformat(' ')}}   {{ object['view_number']}}  {{ object['vote_number']}}</p>
+                <div class="container col-5">
+
+                </div>
                 <div class="container col-5 float-right">
                     <a href="/question/{{ object['id'] }}/delete" role="button" class="btn btn-outline-danger float-right">Delete</a>
                     <a href="/show_question/{{ object['id'] }}/edit" role="button" class="btn btn-outline-warning float-right mr-3">Eddit</a>

@@ -104,8 +104,6 @@ def about():
 
 @app.route('/add_question', methods=['GET', 'POST'])
 def add():
-    tags = data_manager_questions.get_tags()
-
     data = request.form
     if request.method == 'POST':
         if 'username' in session:
@@ -116,7 +114,7 @@ def add():
         login = None
         if 'username' in session:
             login = session['username']
-        return render_template('add.html', login=login, tags=tags)
+        return render_template('add.html', login=login)
     return redirect('/list')
 
 
