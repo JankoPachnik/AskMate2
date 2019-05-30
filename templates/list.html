@@ -39,9 +39,9 @@
             <hr>
             {% for question in questions %}
                 <div class="container bg-light shadow p-2 d-flex rounded-sm col-12" style="margin-bottom: 2%"> <!-- Python Functions -->
-                    <div class="col-sm-2 float-left" style="overflow: hidden; white-space: nowrap;"><a href="/show_question/{{ question['id'] }}">{{ question['title'] }} </a></div>
-                    <div class="col-sm-4 float-left" style="overflow: hidden; white-space: nowrap;"><p>{{ question['message'] }}</p></div>
-                    <div class="col-sm-3 float-left"><p>{{ question['submission_time'] }}</p></div>
+                    <div class="col-sm-3 float-left" style="overflow: hidden; white-space: nowrap; font-size: large;"><a href="/show_question/{{ question['id'] }}">{{ question['title'] }} </a></div>
+                    <div class="col-sm-4 float-left" style="overflow: hidden; white-space: nowrap; font-size: small;"><p>{{ question['message'] }}</p></div>
+                    <div class="col-sm-2 float-left"><p>{{ question['submission_time'] }}</p></div>
                     <div class="col-sm-1 float-left"><img src="/static/images/view.png" style="height: 30%; width: 30%"><p>{{ question['view_number'] }}</p></div>
                     <div class="col-sm-1 float-left"><a href="/list/{{ question['id'] }}/up"><img src="/static/images/arrow_up.png" style="height: 33%; width: 33%"></a><p style="margin-bottom: 0px">{{ question['vote_number'] }}</p><a href="/list/{{ question['id'] }}/down"><img src="/static/images/arrow_down.png" style="height: 33%; width: 33%"></a></div>
                     <div class="col-sm-1 float-left"><p>None</p></div>

@@ -26,6 +26,12 @@ def get_tags():
 def one_question(id_of_question):
     sql_query = """SELECT * FROM question WHERE id=%s;"""
     question = db_connection.sql_data(sql_query, "read", id_of_question)
+    if question[0]['user_id'] == 999:
+        user_login = 'Anonymous'
+        question[0]["user_id"] = user_login
+    else:
+        user_login = data_manager_user_operations.get_user_login(question[0]["user_id"])
+        question[0]["user_id"] = user_login[0]['user_login']
     return question
 
 

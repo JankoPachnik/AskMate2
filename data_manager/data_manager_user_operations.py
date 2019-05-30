@@ -19,8 +19,14 @@ def verify_login(data):
     return 1
 
 
+def get_user_login(id):
+    sql_query = """SELECT user_login FROM credentials WHERE user_id = %s"""
+    user_login = db_connection.sql_data(sql_query, "read", (id, ))
+    return user_login
+
+
 def get_user_info():
-    sql_query= """SELECT user_login, user_email, user_reputation FROM credentials ORDER BY user_reputation DESC"""
+    sql_query = """SELECT user_login, user_email, user_reputation FROM credentials ORDER BY user_reputation DESC"""
     users_info = db_connection.sql_data(sql_query, "read")
     return users_info
 
