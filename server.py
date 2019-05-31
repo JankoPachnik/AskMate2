@@ -75,11 +75,14 @@ def show_question(id):
 @app.route('/add_comment/<id>', methods=['GET', 'POST'])
 def add_comment(id):
     data = request.form
+    login = None
+    if 'username' in session:
+        login = session['username']
     if request.method == 'POST':
         data_manager_comment.add_comment(data, id, session['username'])
         question_id = data_manager_operations.get_question_id(id)
         return redirect('/show_question/' + question_id)     #trzea naprawic id
-    return render_template('add_comment.html', id=id)
+    return render_template('add_comment.html', id=id, login=login)
 
 
 @app.route('/question/<id>/new-answer', methods=['GET', 'POST'])

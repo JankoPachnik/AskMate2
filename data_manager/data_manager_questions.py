@@ -65,7 +65,7 @@ def question_view_count_increase(id):
 
 
 def new_question(request, username=None):
-    tags = request["tags"]
+    #tags = request["tags"]
     data = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     username = data_manager_user_operations.check_user_id(username)
     question = (data, "0", "0", request['title'], request["message"], None, username[0]['user_id'])
